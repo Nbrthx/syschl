@@ -1,0 +1,21 @@
+{
+  "name": "nextix",
+  "description": "School Application",
+  "version": "0.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Ektada Benabi",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "socket.io": "^4.2.0",
+    "ejs": "^3.1.6",
+    "cookie-parser": "^1.4.5",
+    "crypto-js": "^4.1.1",
+    "body-parser": "^1.19.0",
+    "pg": "^8.7.3"
+  }
+}
