@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "react-scripts start"
   },
   "author": "Niberthix",
   "license": "GNU",
