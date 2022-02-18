@@ -1,7 +1,7 @@
 import React from "react"
 
 function Name(props){
-  return <p>Hello {props.name}</p>
+  return (<p>Hello {props.name}</p>)
 }
 
 class App extends React.Component{
