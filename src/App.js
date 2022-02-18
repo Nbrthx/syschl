@@ -9,7 +9,7 @@ class App extends React.Component{
     name: "Jhon Doe"
   }
 
-  function change(){
+  change = () => {
     setState({ name: state.name })
   }
 
