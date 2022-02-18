@@ -5,7 +5,7 @@ function Name(props){
 }
 
 class App extends React.Component{
-  state {
+  state = {
     name: "Jhon Doe"
   }
 
