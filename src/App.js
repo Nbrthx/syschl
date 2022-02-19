@@ -1,6 +1,6 @@
 import React from "react"
 
-const Name = ({props}) => {
+function Name(props) {
   return (<p>Hello {props.name}</p>)
 }
 
