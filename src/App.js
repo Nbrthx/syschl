@@ -1,5 +1,5 @@
 import React from "react"
-imort Ck from "react-cookie"
+import Ck from "react-cookie"
 
 function Name(props) {
   return (<p>Hello {props.name}</p>)
