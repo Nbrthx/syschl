@@ -32,12 +32,12 @@ const Login = () => {
 
   return (
       <h1>Syscuhl App</h1>
-       {msg}
+       {this.msg}
        <label>Name</label><br>
-       <input type="text" value={name}><br>
+       <input type="text" value={this.name}><br>
        <label>Password</label><br>
-       <input type="password" value={password}>
-       <button onClick={signIn}>Login</button>
+       <input type="password" value={this.password}>
+       <button onClick={this.signIn}>Login</button>
   )
 }
 
