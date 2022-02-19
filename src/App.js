@@ -9,7 +9,7 @@ class App extends React.Component{
     name: "Jhon Doe"
   }
   
-  var value = ""
+  value = ""
   change = (e) => {
     this.value = e.target.value
     this.setState({ name: this.value })
