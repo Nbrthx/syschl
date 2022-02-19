@@ -30,8 +30,7 @@ const Login = () => {
 
   if(user != null) window.location.href = "/"
 
-  return(
-    <div>
+  return (
       <h1>Syscuhl App</h1>
        {msg}
        <label>Name</label><br>
@@ -39,7 +38,6 @@ const Login = () => {
        <label>Password</label><br>
        <input type="password" value={password}>
        <button onClick={signIn}>Login</button>
-    </div>
   )
 }
 
