@@ -4,7 +4,7 @@ import Pg from "pg"
 import Cjs from "crypto-js"
 
 const cookies = new Cookies()
-const pool = new Pg.Pool({
+const client = new Pg.Client({
   connectionString: process.env.DB_URL,
   ssl: { rejectUnauthorized: false }
 })
@@ -17,10 +17,10 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    pool.query("select uname, pword from users where uname='"+name+"'",
+    client.query("select uname, pword from users where uname='"+name+"'",
       (err, data) => {
       var uname = data.rows[0].uname
-      var pword = Cjs.AES.decrypt(data.rows[0].pword).toString(Cjs.enc.Utf8)
+      var pword = Cjs.AES.decrypt(data.rows[0].pword, "justlnh").toString(Cjs.enc.Utf8)
       if(uname === name.toLowerCase() && pword === password){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
