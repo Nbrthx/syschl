@@ -14,13 +14,13 @@ const Login = () => {
 
   var name = ""
   var password = ""
-  const [msg, setMsg] = useState()
+  const [msg, setMsg] = React.useState()
 
   const signIn = () => {
     pool.query("select uname, pword from users where uname='"+name+"'",
       (err, data) => {
       var uname = data.rows[0].uname
-      var pword = cjs.AES.decrypt(data.rows[0].pword).toString(cjs.enc.Utf8)
+      var pword = Cjs.AES.decrypt(data.rows[0].pword).toString(Cjs.enc.Utf8)
       if(uname === name.toLowerCase() && pword === password){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
