@@ -16,7 +16,7 @@ class App extends React.Component{
     return (
       <div>
         <Router path="/" page={Index} />
-      </div> i
+      </div>
     )
   }
 }
