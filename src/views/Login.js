@@ -31,7 +31,7 @@ const Login = () => {
   if(user != null) window.location.href = "/"
 
   return (
-    <div className="Login">
+    <div class="Login">
       <h1>Syscuhl App</h1>
        <p>{msg}</p>
 
