@@ -7,7 +7,7 @@ const cookies = new Cookies()
 
 function Router(props) {
   if(window.location.pathname == props.path)
-    return (<{props.page} />)
+    return props.page
   return (<></>)
 }
 
@@ -15,7 +15,7 @@ class App extends React.Component{
   render() {
     return (
       <div>
-        <Router path="/" page="Index" />
+        <Router path="/" page={Index} />
       </div>
     )
   }
