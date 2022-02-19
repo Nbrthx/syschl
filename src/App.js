@@ -15,7 +15,7 @@ function Router(props) {
 class App extends React.Component{
   render() {
     return (
-      <div>
+      <div class="App">
         <Router path="/" page={Index} />
         <Router path="/login" page={Login} />
       </div>
