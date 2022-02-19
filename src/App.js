@@ -8,6 +8,7 @@ import Index from "./views/Index"
 function Router(props) {
   if(window.location.pathname === props.path)
     return props.page
+  else return <p>Not Found</p>
 }
 
 class App extends React.Component{
@@ -15,7 +16,7 @@ class App extends React.Component{
     return (
       <div>
         <Router path="/" page={Index} />
-      </div>
+      </div> i
     )
   }
 }
