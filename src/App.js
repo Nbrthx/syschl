@@ -8,7 +8,7 @@ import Login from "./views/Login"
 
 function Router(props) {
   if(window.location.pathname === props.path)
-    return ({<props.page />})
+    return {<props.page />}
   else return <p>Not Found</p>
 }
 
