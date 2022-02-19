@@ -14,12 +14,13 @@ const Index = () => {
       </div>
     )
   }
-  return(
-    <div>
-      <h1>Syscuhl App</h1>
-      Not logged in, login on <a href="login">here</a>
-    </div>
-  )
+  else
+    return(
+      <div>
+        <h1>Syscuhl App</h1>
+        Not logged in, login on <a href="login">here</a>
+      </div>
+    )
 }
 
 export default Index
