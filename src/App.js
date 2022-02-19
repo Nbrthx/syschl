@@ -2,6 +2,7 @@ import React from "react"
 // import Cookies from "universal-cookie"
 
 import Index from "./views/Index"
+import Login from "./views/Login"
 
 // const cookies = new Cookies()
 
@@ -16,6 +17,7 @@ class App extends React.Component{
     return (
       <div>
         <Router path="/" page={Index} />
+        <Router path="/login" page={Login} />
       </div>
     )
   }
