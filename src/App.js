@@ -17,9 +17,9 @@ class App extends React.Component{
     this.name = e.target.value
   }
 
-  userCk = () => {
+  userChange = () => {
     cookies.set("user", this.name, { path: "/" })
-    setState({ name: this.name })
+    this.setState({ name: this.name })
   }
 
   render() {
@@ -29,7 +29,7 @@ class App extends React.Component{
         <Name name={this.state.name} /> 
         <br /><br />
         <input type="text" value={this.value} onChange={this.change} /><br />
-        <button onClick={this.userCk}>Submit</button>
+        <button onClick={this.userChange}>Submit</button>
       </div>
     )
   }
