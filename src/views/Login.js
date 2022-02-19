@@ -14,7 +14,7 @@ const Login = () => {
 
   var name = ""
   var password = ""
-  var msg = ""
+  const [msg, setMsg] = useState()
 
   const signIn = () => {
     pool.query("select uname, pword from users where uname='"+name+"'",
@@ -24,7 +24,7 @@ const Login = () => {
       if(uname === name.toLowerCase() && pword === password){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
-      }else msg="Incorrect Input!"
+      }else setMsg("Incorrect Input!")
     })
   }
 
