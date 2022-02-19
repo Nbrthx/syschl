@@ -6,7 +6,7 @@ import Index from "./views/Index"
 // const cookies = new Cookies()
 
 function Router(props) {
-  if(String(window.location.pathname) == String(props.path))
+  if(window.location.pathname === props.path)
     return props.page
   return (<></>)
 }
