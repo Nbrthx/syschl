@@ -7,7 +7,7 @@ import Index from "./views/Index"
 
 function Router(props) {
   if(window.location.pathname === props.path)
-    return (<div><{props.page} /></div>)
+    return (<div>{<props.page />}</div>)
   else return <p>Not Found</p>
 }
 
