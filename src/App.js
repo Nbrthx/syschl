@@ -10,17 +10,17 @@ class App extends React.Component{
   }
 
   change = () => {
-    setState({ name: state.name })
+    this.setState({ name: this.state.name })
   }
 
   render() {
     return (
       <div>
         <h1>Test App</h1>
-        <Name name={state.name} /> 
+        <Name name={this.state.name} /> 
         <br /><br />
-        <input type="text" value={state.name} />
-        <button onClick={change}>Submit</button>
+        <input type="text" value={this.state.name} />
+        <button onClick={this.change}>Submit</button>
       </div>
     )
   }
