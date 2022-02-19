@@ -1,12 +1,13 @@
 import React from "react"
-import Ck from "react-cookie"
+import Cookies from "universal-cookie"
+
+const cookies = new Cookies()
 
 function Name(props) {
   return (<p>Hello {props.name}</p>)
 }
 
 class App extends React.Component{
-  [cookies, setCookies, removeCookies] = Ck.useCookies(["user"])
   state = {
     name: "Jhon Doe"
   }
@@ -18,14 +19,14 @@ class App extends React.Component{
   }
 
   userCk = () => {
-    this.setCookies("user", this.state.name, { path: "/" })
+    cookies.set("user", this.state.name, { path: "/" })
   }
 
   render() {
     return (
       <div>
         <h1>Test App</h1>
-        <Name name={this.cookies.user} /> 
+        <Name name={cookies.get("user")} /> 
         <br /><br />
         <input type="text" value={this.value} onChange={this.change} /><br />
         <button onClick={this.userCk}>Submit</button>
