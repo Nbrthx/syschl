@@ -6,7 +6,7 @@ function Name(props) {
 }
 
 class App extends React.Component{
-  const [cookies, setCookies, removeCookies] = Ck.useCookies(["user"])
+  [cookies, setCookies, removeCookies] = Ck.useCookies(["user"])
   state = {
     name: "Jhon Doe"
   }
