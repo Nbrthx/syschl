@@ -9,24 +9,24 @@ function Name(props) {
 
 class App extends React.Component{
   state = {
-    name: "Jhon Doe"
+    name: cookies.get("user") || "Jhon Doe"
   }
   
-  value = ""
+  name = ""
   change = (e) => {
-    this.value = e.target.value
-    this.setState({ name: this.value })
+    this.name = e.target.value
   }
 
   userCk = () => {
-    cookies.set("user", this.state.name, { path: "/" })
+    cookies.set("user", this.name, { path: "/" })
+    setState({ name: this.name })
   }
 
   render() {
     return (
       <div>
         <h1>Test App</h1>
-        <Name name={cookies.get("user")} /> 
+        <Name name={this.state.name} /> 
         <br /><br />
         <input type="text" value={this.value} onChange={this.change} /><br />
         <button onClick={this.userCk}>Submit</button>
