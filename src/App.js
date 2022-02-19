@@ -8,9 +8,10 @@ class App extends React.Component{
   state = {
     name: "Jhon Doe"
   }
-
-  change = () => {
-    this.setState({ name: this.state.name })
+  
+  change = (e) => {
+    
+    this.setState({ name: e.target.value })
   }
 
   render() {
@@ -19,8 +20,7 @@ class App extends React.Component{
         <h1>Test App</h1>
         <Name name={this.state.name} /> 
         <br /><br />
-        <input type="text" value={this.state.name} />
-        <button onClick={this.change}>Submit</button>
+        <input type="text" value="" onChange={this.change} />
       </div>
     )
   }
