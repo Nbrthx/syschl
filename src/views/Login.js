@@ -31,6 +31,7 @@ const Login = () => {
   if(user != null) window.location.href = "/"
 
   return (
+    <div className="Login">
       <h1>Syscuhl App</h1>
        <p>{msg}</p>
 
@@ -39,6 +40,7 @@ const Login = () => {
        <label>Password</label><br>
        <input type="password" value={this.password}>
        <button onClick={signIn}>Login</button>
+    </div>
   )
 }
 
