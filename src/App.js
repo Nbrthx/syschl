@@ -15,11 +15,13 @@ class App extends React.Component{
 
   render() {
     return (
-      <h1>Test App</h1>
-      <Name name={state.name} /> 
-      <br /><br />
-      <input type="text" value={state.name} />
-      <button onClick={change}>Submit</button>
+      <div>
+        <h1>Test App</h1>
+        <Name name={state.name} /> 
+        <br /><br />
+        <input type="text" value={state.name} />
+        <button onClick={change}>Submit</button>
+      </div>
     )
   }
 }
