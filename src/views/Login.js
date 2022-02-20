@@ -1,13 +1,8 @@
 import React from "react"
 import Cookies from "universal-cookie"
-import Pg from "pg"
 import Cjs from "crypto-js"
 
 const cookies = new Cookies()
-const client = new Pg.Client({
-  connectionString: process.env.DB_URL,
-  ssl: { rejectUnauthorized: false }
-})
 
 const Login = () => {
   const user = cookies.get("user")
@@ -17,15 +12,12 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    client.query("select uname, pword from users where uname='"+name+"'",
-      (err, data) => {
-      var uname = data.rows[0].uname
-      var pword = Cjs.AES.decrypt(data.rows[0].pword, "justlnh").toString(Cjs.enc.Utf8)
+      var uname = "nbrthx"
+      var pword = "12345678" || Cjs.AES.decrypt("12345678", "justlnh").toString(Cjs.enc.Utf8)
       if(uname === name.toLowerCase() && pword === password){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
       }else setMsg("Incorrect Input!")
-    })
   }
 
   if(user != null) window.location.href = "/"
