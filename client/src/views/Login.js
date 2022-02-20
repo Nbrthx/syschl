@@ -7,6 +7,7 @@ const cookies = new Cookies()
 const Login = () => {
   const user = cookies.get("user")
 
+  const [result, setResult] = React.useState()
   const [name, setName] = React.useState()
   const [password, setPassword] = React.useState()
 
@@ -19,11 +20,10 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    var result = ""
     React.useEffect(() => {
       fetch("/sapi?for=login&&user="+name)
         .then((res) => res.json())
-        .then((data) => result = data)
+        .then((data) => setResult(data))
     }, [])
 
     var uname = result.uname
