@@ -7,13 +7,13 @@ const cookies = new Cookies()
 const Login = () => {
   const user = cookies.get("user")
 
-  var name = ""
+  const [name, setName] = React.useState()
   const setName = (e) => {
-    name = e.target.value
+    setName(e.target.value)
   }
-  var password = ""
-  const setPassword = (e) => {
-    password = e.target.value
+  const [password, setPassword] = React.useState()
+  const passwordChange = (e) => {
+    setPassword(e.target.value)
   }
   const [msg, setMsg] = React.useState()
 
