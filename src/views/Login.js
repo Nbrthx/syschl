@@ -8,7 +8,7 @@ const Login = () => {
   const user = cookies.get("user")
 
   const [name, setName] = React.useState()
-  const setName = (e) => {
+  const nameChange = (e) => {
     setName(e.target.value)
   }
   const [password, setPassword] = React.useState()
@@ -33,9 +33,9 @@ const Login = () => {
       <h1>Syscuhl App</h1>
        <p>{msg}</p><br />
        <label>Name</label><br />
-       <input type="text" value={name} onChange={setName}/><br />
+       <input type="text" value={name} onChange={nameChange}/><br />
        <label>Password</label><br />
-       <input type="password" value={password} onChange={setPassword} /><br />
+       <input type="password" value={password} onChange={passwordChange} /><br />
        <button onClick={signIn}>Login</button>
     </div>
   )
