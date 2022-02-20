@@ -1,10 +1,7 @@
 import React from "react"
-// import Cookies from "universal-cookie"
 
 import Index from "./views/Index"
 import Login from "./views/Login"
-
-// const cookies = new Cookies()
 
 function Router(props) {
   if(window.location.pathname === props.path)
