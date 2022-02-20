@@ -3,7 +3,7 @@ const app = express()
 
 const port = process.env.PORT || 3001
 
-app.("/api", (req, res) => {
+app.get("/api", (req, res) => {
   res.json({"name": "Niberthix"})
 })
 
