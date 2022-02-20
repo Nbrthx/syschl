@@ -29,7 +29,7 @@ const Login = () => {
        <label>Name</label><br />
        <input type="text" value={name} /><br />
        <label>Password</label><br />
-       <input type="password" value={this.password} /><br />
+       <input type="password" value={password} /><br />
        <button onClick={signIn}>Login</button>
     </div>
   )
