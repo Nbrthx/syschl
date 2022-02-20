@@ -9,7 +9,7 @@ const config = {
   connectionString: process.env.DB_URL,
   ssl: { rejectUnauthorized: false }
 }
-const pool = pg.Pool(config)
+const pool = new pg.Pool(config)
 
 app.use(express.static(__dirname+"/client/build"))
 
