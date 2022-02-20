@@ -21,7 +21,7 @@ const Login = () => {
 
   const signIn = () => {
     React.useEffect(() => {
-      fetch("/sapi?for=login&&user="+name)
+      fetch("/api?for=login&&user="+name)
         .then((res) => res.json())
         .then((data) => setResult(data))
     }, [])
