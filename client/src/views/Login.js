@@ -29,7 +29,8 @@ const Login = () => {
     console.log(result)
     var uname = result.uname
     var pword = Cjs.AES.decrypt(result.pword, process.env.PSPH).toString(Cjs.enc.Utf8)
-    if(uname === name.toLowerCase() && pword === password){
+    if(!uname) setMsg("Username Not Found")
+    else if(uname === name.toLowerCase() && pword === password){
       cookies.set("user", name.toLowerCase(), { path: "/" })
       window.location.href = "/"
     }else setMsg("Username or Password Incorrect!")
