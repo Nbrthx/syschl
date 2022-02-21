@@ -4,6 +4,23 @@ import Cjs from "crypto-js"
 
 const cookies = new Cookies()
 
+function useFetch(url) {
+  const [data, setData] = useState();
+
+  async function fetchUrl() {
+    const response = await fetch(url);
+    const json = await response.json();
+
+    setData(json);
+  }
+
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+
+  return data;
+}
+
 const Login = () => {
   const user = cookies.get("user")
 
@@ -19,19 +36,9 @@ const Login = () => {
   }
   const [msg, setMsg] = React.useState()
 
-  async function fetchUrl(url) {
-    const response = await fetch(url);
-    const json = await response.json();
-
-    setResult(json)
-  }
-
-  React.useEffect(() => {
-    fetchUrl("/api?for=login&&user="+name)
-  }, [])
-
-
   const signIn = () => {
+    setResult(useFetch("/api?for=login&&user="+name)
+
     var uname = result["uname"]
     var pword = Cjs.AES.decrypt(result["pword"], process.env.PSPH).toString(Cjs.enc.Utf8)
     if(!uname) setMsg("Username Not Found")
