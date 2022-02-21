@@ -7,31 +7,34 @@ const cookies = new Cookies()
 const Login = () => {
   const user = cookies.get("user")
 
-  const [result, setResult] = React.useState([])
-  const [name, setName] = React.useState()
-  const [password, setPassword] = React.useState()
+  const [results, setResults] = React.useState([])
+  const [name, setName] = React.useState("")
+  const [password, setPassword] = React.useState("")
 
   const nameChange = (e) => setName(e.target.value)
   const passwordChange = (e) => setPassword(e.target.value)
   
   const [msg, setMsg] = React.useState()
 
-  React.useEffect(() => {
-    fetch("/api?for=login&&user=nbrthx")
-        .then(res => res.json())
-        .then(data => setResult([data.uname, data.pword]))
-  }, []);
-
   const signIn = () => {
-    if(!result) return;
-    var uname = result[0]
-    var pword = Cjs.AES.decrypt(result[1], process.env.PSPH).toString(Cjs.enc.Utf8)
+    console.log(results.map((result) => result+" "))
+    var uname = results[0]
+    var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
     if(!uname) setMsg("Username Not Found")
     else if(uname === name.toLowerCase() && pword === password){
       cookies.set("user", name.toLowerCase(), { path: "/" })
       window.location.href = "/"
-    }else setMsg("Username or Password Incorrect!")
+    }
+    else setMsg("Username or Password Incorrect!")
   }
+
+  const getSign = () => {
+    fetch("/api?for=login&&user="+name)
+    .then(res => res.json())
+    .then(data => setResults([data.uname, data.pword]))
+  }
+
+  React.useEffect(() => signIn, [results])
 
   if(user != null) window.location.href = "/"
 
@@ -43,8 +46,7 @@ const Login = () => {
        <input type="text" value={name} onChange={nameChange}/><br />
        <label>Password</label><br />
        <input type="password" value={password} onChange={passwordChange} /><br />
-       <button onClick={signIn}>Login</button><br />
-       {result}
+       <button onClick={getSign}>Login</button><br />
     </div>
   )
 }
