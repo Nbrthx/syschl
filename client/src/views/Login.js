@@ -14,7 +14,7 @@ function useFetch(url) {
     setData(json);
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchUrl();
   }, []);
 
