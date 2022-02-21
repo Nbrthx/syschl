@@ -11,18 +11,15 @@ const Login = () => {
   const [name, setName] = React.useState()
   const [password, setPassword] = React.useState()
 
-  const nameChange = (e) => {
-    setName(e.target.value)
-  }
-  const passwordChange = (e) => {
-    setPassword(e.target.value)
-  }
+  const nameChange = (e) => setName(e.target.value)
+  const passwordChange = (e) => setPassword(e.target.value)
+  
   const [msg, setMsg] = React.useState()
 
   React.useEffect(() => {
-    if(name) fetch("/api?for=login&&user="+name)
-        .then(res => res.json())
-        .then(data => setResult(data))
+    fetch("/api?for=login&&user=nbrthx")
+        .then((res) => res.json())
+        .then((data) => setResult(data))
   }, []);
 
   const signIn = () => {
