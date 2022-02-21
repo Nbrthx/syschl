@@ -18,7 +18,8 @@ const Login = () => {
 
   React.useEffect(() => {
     fetch("/api?for=login&&user=nbrthx")
-        .then(res => setResult([res.json().uname, res.json().pword]))
+        .then(res => res.json())
+        .then(data => setResult([data.uname, data.pword]))
   }, []);
 
   const signIn = () => {
