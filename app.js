@@ -13,11 +13,12 @@ const pool = new pg.Pool(config)
 
 app.use(express.static(__dirname+"/client/build"))
 
-app.get("/api", (req, res) => {
+app.get("/api", async (req, res) => {
   if(req.query.for == "login"){
     const user = req.query.user
-    pool.query("select uname, pword from users where uname='"+user+"'", (err, data) => {
-      res.json(data.rows[0])
+    res.json(
+      (await pool.query("select uname, pword from users where uname='"+user+"'")
+    ).rows[0])
     })
   }
 })
