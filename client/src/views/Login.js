@@ -7,7 +7,7 @@ const cookies = new Cookies()
 const Login = () => {
   const user = cookies.get("user")
 
-  const [result, setResult] = React.useState()
+  const [result, setResult] = React.useState([])
   const [name, setName] = React.useState()
   const [password, setPassword] = React.useState()
 
@@ -19,13 +19,13 @@ const Login = () => {
   React.useEffect(() => {
     fetch("/api?for=login&&user=nbrthx")
         .then(res => res.json())
-        .then(data => setResult({ uname: data.uname, pword: data.pword }))
+        .then(data => setResult([data.uname, data.pword]))
   }, []);
 
   const signIn = () => {
     if(!result) return;
-    var uname = result.uname
-    var pword = Cjs.AES.decrypt(result.pword, process.env.PSPH).toString(Cjs.enc.Utf8)
+    var uname = result[0]
+    var pword = Cjs.AES.decrypt(result[1], process.env.PSPH).toString(Cjs.enc.Utf8)
     if(!uname) setMsg("Username Not Found")
     else if(uname === name.toLowerCase() && pword === password){
       cookies.set("user", name.toLowerCase(), { path: "/" })
@@ -44,7 +44,7 @@ const Login = () => {
        <label>Password</label><br />
        <input type="password" value={password} onChange={passwordChange} /><br />
        <button onClick={signIn}>Login</button><br />
-       {result.uname} {result.pword}
+       {result}
     </div>
   )
 }
