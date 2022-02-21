@@ -44,7 +44,7 @@ const Login = () => {
        <label>Password</label><br />
        <input type="password" value={password} onChange={passwordChange} /><br />
        <button onClick={signIn}>Login</button><br />
-       {result}
+       {result[0]} {result[1]}
     </div>
   )
 }
