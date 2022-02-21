@@ -5,7 +5,7 @@ import Cjs from "crypto-js"
 const cookies = new Cookies()
 
 function useFetch(url) {
-  const [data, setData] = useState();
+  const [data, setData] = React.useState();
 
   async function fetchUrl() {
     const response = await fetch(url);
