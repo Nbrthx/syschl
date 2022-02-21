@@ -18,14 +18,13 @@ const Login = () => {
 
   React.useEffect(() => {
     fetch("/api?for=login&&user=nbrthx")
-        .then((res) => res.json())
-        .then((data) => setResult(data))
+        .then(res => setResult(res.json()))
   }, []);
 
   const signIn = () => {
     if(!result) return;
-    var uname = result["uname"]
-    var pword = Cjs.AES.decrypt(result["pword"], process.env.PSPH).toString(Cjs.enc.Utf8)
+    var uname = result.uname
+    var pword = Cjs.AES.decrypt(result.pword, process.env.PSPH).toString(Cjs.enc.Utf8)
     if(!uname) setMsg("Username Not Found")
     else if(uname === name.toLowerCase() && pword === password){
       cookies.set("user", name.toLowerCase(), { path: "/" })
