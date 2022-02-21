@@ -19,11 +19,16 @@ const Login = () => {
   }
   const [msg, setMsg] = React.useState()
 
+  async function fetchUrl(url) {
+    const response = await fetch(url);
+    const json = await response.json();
+
+    setResult(json)
+  }
+
   const signIn = () => {
     React.useEffect(() => {
-      fetch("/api?for=login&&user="+name)
-        .then((res) => res.json())
-        .then((data) => setResult(data))
+      fetchUrl("/api?for=login&&user="+name)
     }, [])
 
     var uname = result["uname"]
