@@ -19,7 +19,7 @@ app.get("/api", async (req, res) => {
     res.json(
       (await pool.query("select uname, pword from users where uname='"+user+"'")
     ).rows[0])
-    })
+    )
   }
 })
 
