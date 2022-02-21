@@ -37,7 +37,7 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    setResult(useFetch("/api?for=login&&user="+name)
+    setResult(useFetch("/api?for=login&&user="+name))
 
     var uname = result["uname"]
     var pword = Cjs.AES.decrypt(result["pword"], process.env.PSPH).toString(Cjs.enc.Utf8)
