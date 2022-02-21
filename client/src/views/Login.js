@@ -26,11 +26,12 @@ const Login = () => {
     setResult(json)
   }
 
-  const signIn = () => {
-    React.useEffect(() => {
-      fetchUrl("/api?for=login&&user="+name)
-    }, [])
+  React.useEffect(() => {
+    fetchUrl("/api?for=login&&user="+name)
+  }, [])
 
+
+  const signIn = () => {
     var uname = result["uname"]
     var pword = Cjs.AES.decrypt(result["pword"], process.env.PSPH).toString(Cjs.enc.Utf8)
     if(!uname) setMsg("Username Not Found")
