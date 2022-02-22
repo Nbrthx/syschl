@@ -17,15 +17,17 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    console.log(results.map((result) => result+" "))
-    var uname = results[0]
-    var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
-    if(!uname) setMsg("Username Not Found")
-    else if(uname === name.toLowerCase() && pword === password){
-      cookies.set("user", name.toLowerCase(), { path: "/" })
-      window.location.href = "/"
+    if(results != null){
+      console.log(results.map((result) => result+" "))
+      var uname = results[0]
+      var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
+      if(!uname) setMsg("Username Not Found")
+      else if(uname === name.toLowerCase() && pword === password){
+        cookies.set("user", name.toLowerCase(), { path: "/" })
+        window.location.href = "/"
+      }
+      else setMsg("Username or Password Incorrect!")
     }
-    else setMsg("Username or Password Incorrect!")
   }
 
   const getSign = () => {
@@ -34,7 +36,7 @@ const Login = () => {
     .then(data => setResults([data.uname, data.pword]))
   }
 
-  React.useEffect(() => signIn, [results])
+  React.useEffect(() => signIn(), [results])
 
   if(user != null) window.location.href = "/"
 
