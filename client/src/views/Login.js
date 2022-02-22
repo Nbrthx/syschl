@@ -17,7 +17,7 @@ const Login = () => {
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
-    if(results != null){
+    if(results[0] != null){
       console.log(results.map((result) => result+" "))
       var uname = results[0]
       var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
