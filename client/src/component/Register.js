@@ -22,28 +22,24 @@ const Register = () => {
   const [msg, setMsg] = React.useState()
 
   const signUp = () => {
-    if(results[0] != null){
-      console.log(results.map((result) => result+" "))
-      var uname = results[0]
-      var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
-      if(!uname) setMsg("Username Not Found")
-      else if(uname === name.toLowerCase() && pword === pw){
-        cookies.set("user", name.toLowerCase(), { path: "/" })
-        window.location.href = "/"
-      }
-      else setMsg("Username or Password Incorrect!")
+    if(name == "" || pw == "" || repw == "" || fname == "") setMsg("Input must be filled")
+    else if(pw.size() < 8) setMsg("Password must be 8 digit")
+    else if(pw != repw) setMsg("Password & Repassword must be same")
+    else if(!exist){
+      const encpw = Cjs.AES.encrypt(pw, process.env.PSPH)
+      fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw
+      window.location.href = "/"
     }
+    else setMsg("Username already used")
   }
 
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
     .then(res => res.json())
     .then(data => setExist(true))
-    const encpw = Cjs.AES.encrypt(
-    fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+pw+"
   }
 
-  React.useEffect(() => signIn(), [results])
+  React.useEffect(() => signIn(), [exist])
 
   if(user != null) window.location.href = "/"
 
