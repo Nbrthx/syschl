@@ -27,7 +27,7 @@ const Register = () => {
     else if(pw != repw) setMsg("Password & Repassword must be same")
     else if(!exist){
       const encpw = Cjs.AES.encrypt(pw, process.env.PSPH)
-      fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw
+      fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw)
       window.location.href = "/"
     }
     else setMsg("Username already used")
@@ -39,19 +39,24 @@ const Register = () => {
     .then(data => setExist(true))
   }
 
-  React.useEffect(() => signIn(), [exist])
+  React.useEffect(() => {
+    if(name != "") signUp()
+  }, [exist])
 
   if(user != null) window.location.href = "/"
-
-  return (
+  else return (
     <div className="login-page">
       <h1>Syscuhl App</h1>
-       <p>{msg}</p>
+       {msg}<br />
        <label>Name</label><br />
+       <input type="text" value={fname} onChange={fnameChange}/><br />
+       <label>Username</label><br />
        <input type="text" value={name} onChange={nameChange}/><br />
+       <label>Name</label><br />
+       <input type="text" value={pw} onChange={pwChange}/><br />
        <label>Password</label><br />
-       <input type="password" value={password} onChange={passwordChange} /><br />
-       <button onClick={getSign}>Login</button><br />
+       <input type="password" value={repw} onChange={repwChange} /><br />
+       <button onClick={getSign}>Register</button><br />
     </div>
   )
 }
