@@ -20,6 +20,13 @@ app.get("/api", async (req, res) => {
       (await pool.query("select uname, pword from users where uname='"+user+"'")
     ).rows[0])
   }
+  else if(req.query.for == "register"){
+    const fname = req.query.fname
+    const name = req.query.name
+    const pw = req.query.pw
+    pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)")
+    .then(data => { if(data.rowCount > 0) res.json("succes": true) })
+  }
 })
 
 app.get("*", (req, res) => {
