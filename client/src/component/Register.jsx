@@ -7,7 +7,7 @@ const cookies = new Cookies()
 const Register = () => {
   const user = cookies.get("user")
 
-  const [exist, setExist] = React.useState(false)
+  const [exist, setExist] = React.useState(null)
 
   const [fname, setFname] = React.useState("")
   const [name, setName] = React.useState("")
