@@ -1,7 +1,8 @@
 import React from "react"
 
-import Index from "./views/Index"
-import Login from "./views/Login"
+import Index from "./component/Index"
+import Login from "./component/Login"
+import Register from "./component/Register"
 
 function Router(props) {
   if(window.location.pathname === props.path)
@@ -15,6 +16,7 @@ class App extends React.Component{
       <div class="App">
         <Router path="/" page={Index} />
         <Router path="/login" page={Login} />
+        <Router path="/register" page={Register} />
       </div>
     )
   }
