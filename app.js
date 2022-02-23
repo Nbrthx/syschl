@@ -24,8 +24,10 @@ app.get("/api", async (req, res) => {
     const fname = req.query.fname
     const name = req.query.name
     const pw = req.query.pw
-    pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)")
-    .then(data => { if(data.rowCount > 0) res.json("succes": true) })
+    pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)", (err, data) => {
+      if(err) throw err
+      else if(data.rowCount > 0) res.json("succes": true) 
+    })
   }
 })
 
