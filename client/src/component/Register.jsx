@@ -22,7 +22,7 @@ const Register = () => {
   const [msg, setMsg] = React.useState()
 
   const signUp = () => {
-    if(name == "" || pw == "" || repw == "" || fname == "") setMsg("Input must be filled")
+    if(name === "" || pw === "" || repw === "" || fname === "") setMsg("Input must be filled")
     else if(pw.size() < 8) setMsg("Password must be 8 digit")
     else if(pw != repw) setMsg("Password & Repassword must be same")
     else if(!exist){
@@ -36,7 +36,10 @@ const Register = () => {
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
     .then(res => res.json())
-    .then(data => setExist(true))
+    .then(data => {
+      if(data.uname) setExist(true)
+      else setExist(false)
+    })
   }
 
   React.useEffect(() => {
