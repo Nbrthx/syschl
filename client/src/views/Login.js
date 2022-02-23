@@ -9,20 +9,19 @@ const Login = () => {
 
   const [results, setResults] = React.useState([])
   const [name, setName] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const [pw, setPw] = React.useState("")
 
   const nameChange = (e) => setName(e.target.value)
-  const passwordChange = (e) => setPassword(e.target.value)
+  const pwChange = (e) => setPw(e.target.value)
   
   const [msg, setMsg] = React.useState()
 
   const signIn = () => {
     if(results[0] != null){
-      console.log(results.map((result) => result+" "))
       var uname = results[0]
       var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
       if(!uname) setMsg("Username Not Found")
-      else if(uname === name.toLowerCase() && pword === password){
+      else if(uname === name.toLowerCase() && pword === pw){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
       }
@@ -39,15 +38,14 @@ const Login = () => {
   React.useEffect(() => signIn(), [results])
 
   if(user != null) window.location.href = "/"
-
-  return (
+  else return (
     <div className="login-page">
       <h1>Syscuhl App</h1>
        <p>{msg}</p>
        <label>Name</label><br />
        <input type="text" value={name} onChange={nameChange}/><br />
        <label>Password</label><br />
-       <input type="password" value={password} onChange={passwordChange} /><br />
+       <input type="password" value={pw} onChange={pwChange} /><br />
        <button onClick={getSign}>Login</button><br />
     </div>
   )
