@@ -9,7 +9,7 @@ const Register = () => {
 
   const [exist, setExist] = React.useState(false)
 
-  const [name, setName] = React.useState("")
+  const [fname, setFname] = React.useState("")
   const [name, setName] = React.useState("")
   const [pw, setPw] = React.useState("")
   const [repw, setRepw] = React.useState("")
