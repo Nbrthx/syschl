@@ -7,8 +7,6 @@ const cookies = new Cookies()
 const Register = () => {
   const user = cookies.get("user")
 
-  const [exist, setExist] = React.useState(null)
-
   const [fname, setFname] = React.useState("")
   const [name, setName] = React.useState("")
   const [pw, setPw] = React.useState("")
@@ -21,7 +19,7 @@ const Register = () => {
   
   const [msg, setMsg] = React.useState()
 
-  const signUp = () => {
+  const signUp = (exist) => {
     if(!name || !pw || !repw || !fname ) setMsg("Input must be filled")
     else if(pw.length < 8) setMsg("Password must be 8 digit")
     else if(pw != repw) setMsg("Password & Repassword must be same")
@@ -36,12 +34,8 @@ const Register = () => {
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
     .then(res => res.json())
-    .then(data => { data.uname ? setExist(true) : setExist(false) })
+    .then(data => { data.uname ? signUp(true) : signUp(false) })
   }
-
-  React.useEffect(() => {
-    signUp
-  }, [exist])
 
   if(user != null) window.location.href = "/"
   else return (
