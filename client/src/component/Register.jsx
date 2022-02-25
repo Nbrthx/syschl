@@ -23,7 +23,7 @@ const Register = () => {
 
   const signUp = () => {
     if(name === "" || pw === "" || repw === "" || fname === "") setMsg("Input must be filled")
-    else if(pw.size() < 8) setMsg("Password must be 8 digit")
+    else if(pw.length < 8) setMsg("Password must be 8 digit")
     else if(pw != repw) setMsg("Password & Repassword must be same")
     else if(!exist){
       const encpw = Cjs.AES.encrypt(pw, process.env.PSPH)
