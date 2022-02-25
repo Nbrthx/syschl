@@ -35,10 +35,7 @@ const Register = () => {
 
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
-    .then(res => { if(res.ok) res.json(); else setExist(false) })
-    .then(data => {
-      if(data.uname) setExist(true)
-    })
+    .then(res => { if(res.ok) setExist(true); else setExist(false) })
   }
 
   React.useEffect(() => {
