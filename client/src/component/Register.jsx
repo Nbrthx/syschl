@@ -24,7 +24,7 @@ const Register = () => {
     else if(pw.length < 8) setMsg("Password must be 8 digit")
     else if(pw !== repw) setMsg("Password & Repassword must be same")
     else if(!exist){
-      const encpw = String(Cjs.AES.encrypt(pw, process.env.PSPH))
+      const encpw = String(Cjs.AES.encrypt(Cjs.enc.Utf8.parse(pw), process.env.PSPH))
       fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw)
       window.location.href = "/"
     }
