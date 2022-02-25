@@ -18,7 +18,7 @@ app.get("/api", async (req, res) => {
     const user = req.query.user
     res.json(
       (await pool.query("select uname, pword from users where uname='"+user+"'")
-    ).rows[0])
+    ).rows[0] || {})
   }
   else if(req.query.for == "register"){
     const fname = req.query.fname
@@ -26,9 +26,11 @@ app.get("/api", async (req, res) => {
     const pw = req.query.pw
     pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)", (err, data) => {
       if(err) throw err
-      else if(data.rowCount > 0) res.json({ "succes": true }) 
+      else if(data.rowCount > 0) res.json({ succes: true })
+      else res.json({ succes: false })
     })
   }
+  else res.json({})
 })
 
 app.get("*", (req, res) => {
