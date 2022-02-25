@@ -52,9 +52,9 @@ const Register = () => {
        <input type="text" value={fname} onChange={fnameChange}/><br />
        <label>Username</label><br />
        <input type="text" value={name} onChange={nameChange}/><br />
-       <label>Name</label><br />
-       <input type="text" value={pw} onChange={pwChange}/><br />
        <label>Password</label><br />
+       <input type="password" value={pw} onChange={pwChange}/><br />
+       <label>Re-Password</label><br />
        <input type="password" value={repw} onChange={repwChange} /><br />
        <button onClick={getSign}>Register</button><br />
     </div>
