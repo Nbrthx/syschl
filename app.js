@@ -3,6 +3,8 @@ const path = require("path")
 const pg = require("pg")
 const app = express()
 
+require("dotenv").config()
+
 const port = process.env.PORT || 3001
 
 const config = {
