@@ -26,6 +26,7 @@ const Register = () => {
     else if(pw.length < 8) setMsg("Password must be 8 digit")
     else if(pw != repw) setMsg("Password & Repassword must be same")
     else if(!exist){
+      console.log("Authentication")
       const encpw = Cjs.AES.encrypt(pw, process.env.PSPH)
       fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw)
       window.location.href = "/"
@@ -35,12 +36,13 @@ const Register = () => {
 
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
-    .then(res => res.text())
-    .then(data => { data.length ? setExist(true) : setExist(false) })
+    .then(res => res.json())
+    .then(data => { data.uname ? setExist(true) : setExist(false) })
   }
 
   React.useEffect(() => {
     if(name != "") signUp()
+    setExist(null)
   }, [exist])
 
   if(user != null) window.location.href = "/"
