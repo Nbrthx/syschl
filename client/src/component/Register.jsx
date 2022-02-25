@@ -35,7 +35,8 @@ const Register = () => {
 
   const getSign = () => {
     fetch("/api?for=login&&user="+name)
-    .then(res => { if(res.ok) setExist(true); else setExist(false) })
+    .then(res => res.text())
+    .then(data => { data.length ? setExist(true) : setExist(false) })
   }
 
   React.useEffect(() => {
