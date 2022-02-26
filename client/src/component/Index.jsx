@@ -44,6 +44,7 @@ const Index = () => {
           Skor: {userData.skor}<br />
           Kelas: {userData.kelas}
         </div>
+        <p>{process.env}</p>
       </div>
     </div>
   )
