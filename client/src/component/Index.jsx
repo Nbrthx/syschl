@@ -53,6 +53,7 @@ const Index = () => {
           <b>Wellcome to E-Syschool</b><br />
           You have to login before use our service.<br />
           Login on <a href="login">here</a>
+          <br />{process.env}
         </div>
       </div>
     )
