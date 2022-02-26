@@ -6,7 +6,7 @@ const app = express()
 const port = process.env.PORT || 3001
 
 const config = {
-  connectionString: "postgres://vgmmvdzlgszvqy:56d8260fd3c2e3da3149b77ec29764ff8d97c1bff70a8bb4a4765a6cb8e193dd@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d44e62pftbun22",
+  connectionString: process.env.DB_URL,
   ssl: { rejectUnauthorized: false }
 }
 const pool = new pg.Pool(config)
