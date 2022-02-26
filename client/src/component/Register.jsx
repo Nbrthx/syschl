@@ -6,6 +6,10 @@ const cookies = new Cookies()
 
 const Register = () => {
   const user = cookies.get("user")
+  if(user != null){
+    window.location.href = "/"
+    return null
+  }
 
   const [fname, setFname] = React.useState("")
   const [name, setName] = React.useState("")
@@ -24,9 +28,11 @@ const Register = () => {
     else if(pw.length < 8) setMsg("Password must be 8 digit")
     else if(pw !== repw) setMsg("Password & Repassword must be same")
     else if(!exist){
-      const encpw = Cjs.AES.encrypt(pw, process.env.REACT_APP_PSPH).toString()
+      const encpw = Cjs.AES.encrypt(String(pw), "justlnh").toString()
+      console.log(encpw)
       fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw)
-      window.location.href = "/"
+      .then(res => res.json())
+      .then(data => { data.succes ? window.location.href = "/" : setMsg("Something Wrong") })
     }
     else setMsg("Username already used")
   }
@@ -37,20 +43,21 @@ const Register = () => {
     .then(data => { data.uname ? signUp(true) : signUp(false) })
   }
 
-  if(user != null) window.location.href = "/"
-  else return (
-    <div className="login-page">
-      <h1>Syscuhl App</h1>
-       {msg}<br />
-       <label>Name</label><br />
-       <input type="text" value={fname} onChange={fnameChange}/><br />
-       <label>Username</label><br />
-       <input type="text" value={name} onChange={nameChange}/><br />
-       <label>Password</label><br />
-       <input type="password" value={pw} onChange={pwChange}/><br />
-       <label>Re-Password</label><br />
-       <input type="password" value={repw} onChange={repwChange} /><br />
-       <button onClick={getSign}>Register</button><br />
+  return (
+    <div className="form">
+      <div className="card">
+        <h1>Syscuhl App</h1>
+        {msg}<br />
+        <label>Name</label><br />
+        <input type="text" value={fname} onChange={fnameChange}/><br />
+        <label>Username</label><br />
+        <input type="text" value={name} onChange={nameChange}/><br />
+        <label>Password</label><br />
+        <input type="password" value={pw} onChange={pwChange}/><br />
+        <label>Re-Password</label><br />
+        <input type="password" value={repw} onChange={repwChange} /><br />
+        <button onClick={getSign}>Register</button><br />
+      </div>
     </div>
   )
 }

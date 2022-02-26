@@ -3,12 +3,10 @@ const path = require("path")
 const pg = require("pg")
 const app = express()
 
-require("dotenv").config()
-
 const port = process.env.PORT || 3001
 
 const config = {
-  connectionString: process.env.DB_URL,
+  connectionString: "postgres://vgmmvdzlgszvqy:56d8260fd3c2e3da3149b77ec29764ff8d97c1bff70a8bb4a4765a6cb8e193dd@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d44e62pftbun22",
   ssl: { rejectUnauthorized: false }
 }
 const pool = new pg.Pool(config)
@@ -18,9 +16,8 @@ app.use(express.static(__dirname+"/client/build"))
 app.get("/api", async (req, res) => {
   if(req.query.for == "login"){
     const user = req.query.user
-    res.json(
-      (await pool.query("select uname, pword from users where uname='"+user+"'")
-    ).rows[0] || {})
+    const data = await pool.query("select uname, pword from users where uname='"+user+"'")
+    res.json(data.rows[0] || {})
   }
   else if(req.query.for == "register"){
     const fname = req.query.fname
@@ -31,6 +28,16 @@ app.get("/api", async (req, res) => {
       else if(data.rowCount > 0) res.json({ succes: true })
       else res.json({ succes: false })
     })
+  }
+  else if(req.query.for == "data"){
+    const user = req.query.user
+    const data = await pool.query("select * from users where uname='"+user+"'")
+    res.json(data.rows[0] || {})
+  }
+  else if(req.query.for == "tugas"){
+    const kelas = req.query.kelas
+    const data = await pool.query("select * from tugas where kelas='"+kelas+"'")
+    res.json(data.rows[0] || {})
   }
   else res.json({})
 })

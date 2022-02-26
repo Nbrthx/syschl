@@ -3,6 +3,7 @@ import React from "react"
 import Index from "./component/Index"
 import Login from "./component/Login"
 import Register from "./component/Register"
+import "./style.css"
 
 function Router(props) {
   if(window.location.pathname === props.path)
