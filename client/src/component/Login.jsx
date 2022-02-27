@@ -6,8 +6,8 @@ const cookies = new Cookies()
 
 const Login = () => {
   const user = cookies.get("user")
-  if(user == null){
-    window.location.href = "/login"
+  if(user != null){
+    window.location.href = "/"
     return null
   }
 
