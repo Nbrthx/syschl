@@ -27,7 +27,7 @@ const Index = () => {
   React.useEffect(
     fetch("/api?for=tugas&&kelas="+userData.kelas)
     .then(res => res.json())
-    .then(data => { if(data.idname) setTugas(data) })
+    .then(data => { if(data.id) setTugas(data) })
   , [userData])
 
   window.onload = () => getData()
