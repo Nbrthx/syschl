@@ -35,7 +35,6 @@ const Index = () => {
 
   window.onload = () => getData()
 
-
   return (
     <div className="dashboard">
       <div className="card">
