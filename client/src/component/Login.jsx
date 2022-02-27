@@ -11,6 +11,8 @@ const Login = () => {
     return null
   }
 
+  console.log(process.env)
+
   const [results, setResults] = React.useState([])
   const [name, setName] = React.useState("")
   const [pw, setPw] = React.useState("")
@@ -51,7 +53,6 @@ const Login = () => {
         <input type="password" value={pw} onChange={pwChange} /><br />
         <button className="submit" onClick={getSign}>Login</button><br />
       </div>
-      <p>{process.env}</p>
     </div>
   )
 }
