@@ -44,7 +44,6 @@ const Index = () => {
           Skor: {userData.skor}<br />
           Kelas: {userData.kelas}
         </div>
-        <p>%REACT_APP_PSPH%</p>
       </div>
     </div>
   )
