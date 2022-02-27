@@ -18,19 +18,20 @@ const Index = () => {
   })
   const [tugas, setTugas] = React.useState({})
 
+  const getTugas = (kelas) => {
+    fetch("/api?for=tugas&&kelas="+kelas)
+    .then(res => res.json())
+    .then(data => { if(data.id) setTugas(data) })
+  }
+
   const getData = () => {
     fetch("/api?for=data&&user="+user)
     .then(res => res.json())
-    .then(data => { if(data.uname) setUserData(data) })
+    .then(data => {
+      if(data.uname) setUserData(data)
+      getTugas(data.kelas)
+    })
   }
-
-  React.useEffect({
-    if(userData.kelas){
-      fetch("/api?for=tugas&&kelas="+userData.kelas)
-      .then(res => res.json())
-      .then(data => { if(data.id) setTugas(data) })
-    }
-  }, [userData])
 
   window.onload = () => getData()
 
