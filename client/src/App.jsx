@@ -7,7 +7,8 @@ import "./style.css"
 
 function Router(props) {
   if(window.location.pathname === props.path)
-    return <props.page />
+    return (<props.page />)
+  else return (<></>)
 }
 
 class App extends React.Component{
