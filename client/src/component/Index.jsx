@@ -16,7 +16,7 @@ const Index = () => {
     skor: 0,
     kelas: "null"
   })
-  const [tugas, setTugas] = React.useState({})
+  const [tugas, setTugas] = React.useState([])
 
   const getTugas = (kelas) => {
     fetch("/api?for=list_tugas&&kelas="+kelas)
