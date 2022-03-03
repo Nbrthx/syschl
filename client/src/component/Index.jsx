@@ -45,13 +45,13 @@ const Index = () => {
       <div className="card">
         <h1>Hello {userData.name}</h1>
         Welcome to React Test App<br />
-        <div class="data-diri">
+        <div className="data-diri">
           Nama: {userData.name}<br />
           Absen: {userData.absen}<br />
           Skor: {userData.skor}<br />
           Kelas: {userData.kelas}
         </div>
-        <div class="tugas">
+        <div className="tugas">
           {listTugas()}
         </div>
       </div>
