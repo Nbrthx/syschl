@@ -34,9 +34,14 @@ app.get("/api", async (req, res) => {
     const data = await pool.query("select * from users where uname='"+user+"'")
     res.json(data.rows[0] || {})
   }
-  else if(req.query.for == "tugas"){
+  else if(req.query.for == "list_tugas"){
     const kelas = req.query.kelas
-    const data = await pool.query("select * from tugas where kelas='"+kelas+"'")
+    const data = await pool.query("select id, name from tugas where kelas='"+kelas+"'")
+    res.json(data.rows || [])
+  }
+  else if(req.query.for == "tugas"){
+    const id = req.query.id
+    const data = await pool.query("select * from tugas where id='"+id+"'")
     res.json(data.rows[0] || {})
   }
   else res.json({})
