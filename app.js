@@ -4,6 +4,7 @@ const pg = require("pg")
 const app = express()
 
 const port = process.env.PORT || 3001
+const psph = process.env.PSPH
 
 const config = {
   connectionString: process.env.DB_URL,
@@ -12,6 +13,10 @@ const config = {
 const pool = new pg.Pool(config)
 
 app.use(express.static(__dirname+"/client/build"))
+
+app.post("/gpsph", (req, res) => {
+  res.json({ "psph": psph })
+})
 
 app.get("/api", async (req, res) => {
   if(req.query.for == "login"){
