@@ -19,9 +19,9 @@ const Index = () => {
   const [tugas, setTugas] = React.useState({})
 
   const getTugas = (kelas) => {
-    fetch("/api?for=tugas&&kelas="+kelas)
+    fetch("/api?for=list_tugas&&kelas="+kelas)
     .then(res => res.json())
-    .then(data => { if(data.id) setTugas(data) })
+    .then(data => { if(data[0]) setTugas(data) })
   }
 
   const getData = () => {
@@ -31,6 +31,11 @@ const Index = () => {
       if(data.uname) setUserData(data)
       getTugas(data.kelas)
     })
+  }
+
+  const listTugas = () => {
+    for(var i of tugas)
+      return (<><a href={"/tugas?id="+i.id}>{i.name}</a><br /></>)
   }
 
   window.onload = () => getData()
@@ -45,6 +50,9 @@ const Index = () => {
           Absen: {userData.absen}<br />
           Skor: {userData.skor}<br />
           Kelas: {userData.kelas}
+        </div>
+        <div class="tugas">
+          {listTugas}
         </div>
       </div>
     </div>
