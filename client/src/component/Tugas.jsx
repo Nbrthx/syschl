@@ -10,7 +10,8 @@ const Tugas = () => {
     return null
   }
 
-  
+  const urls = new URLSearchParams(window.location.search)
+  const tid = urls.get("id")
 
   return (
     <div className="tugas">
