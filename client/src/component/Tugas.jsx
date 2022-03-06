@@ -42,7 +42,7 @@ const Tugas = () => {
   const getTugas = () => {
     fetch("/api?for=tugas&&id="+tid)
     .then(res => res.json())
-    .then(data => setTugas(data))
+    .then(data => { if(data) setTugas(data) })
   }
   
   window.onload = () => { getTugas() }
