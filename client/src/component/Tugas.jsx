@@ -12,11 +12,45 @@ const Tugas = () => {
 
   const urls = new URLSearchParams(window.location.search)
   const tid = urls.get("id")
+  
+  const [tugas, setTugas] = React.useState({})
+  const [pilgan, setPilgan] = React.useState([])
+  
+  const getTugas = () => {
+    fetch("/api?for=tugas&&id="+tid)
+    .then(res => res.json())
+    .then(data => setTugas(data))
+  }
+  
+  const soal = () => {
+    for(var i = 0; i < tugas.soal.length; i++){
+      setPilgan(pilgan.concat("a"))
+      var handleSoal = (e) => {
+        var newpilgan = pilgan
+        newpilgan[i] = e.target.value
+        setPligan(newpilgan)
+      }
+      
+      return (
+        <>
+          <label className="soal">{tugas.soal[i][0]}</label><br />
+          <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal()} /><br />
+          <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal()} /><br />
+          <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal()} /><br />
+          <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal()} /><br />
+          <br />
+        </>
+      )
+    }
+  }
+  
+  window.onload = () => getTugas()
 
   return (
     <div className="tugas">
       <div class="card">
-        <h1></h1>
+        <h1>{tugas.name}</h1>
+        {soal()}
       </div>
     </div>
   )
