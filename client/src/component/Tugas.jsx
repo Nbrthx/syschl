@@ -29,7 +29,7 @@ const Tugas = () => {
         var handleSoal = (e) => {
           var newpilgan = pilgan
           newpilgan[i] = e
-          setPligan(newpilgan)
+          setPilgan(newpilgan)
         }
 
         return (
