@@ -45,7 +45,7 @@ const Tugas = () => {
       }
   }
   
-  window.onload = () => getTugas()
+  window.onload = () => { getTugas() }
 
   return (
     <div className="tugas">
