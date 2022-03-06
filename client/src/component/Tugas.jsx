@@ -23,25 +23,26 @@ const Tugas = () => {
   }
   
   const soal = () => {
-    for(var i = 0; i < tugas.soal.length; i++){
-      setPilgan(pilgan.concat("a"))
-      var handleSoal = (e) => {
-        var newpilgan = pilgan
-        newpilgan[i] = e.target.value
-        setPligan(newpilgan)
+    if(tugas.soal)
+      for(var i = 0; i < tugas.soal.length; i++){
+        setPilgan(pilgan.concat("a"))
+        var handleSoal = (e) => {
+          var newpilgan = pilgan
+          newpilgan[i] = e.target.value
+          setPligan(newpilgan)
+        }
+
+        return (
+          <>
+            <label className="soal">{tugas.soal[i][0]}</label><br />
+            <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal()} /><br />
+            <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal()} /><br />
+            <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal()} /><br />
+            <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal()} /><br />
+            <br />
+          </>
+        )
       }
-      
-      return (
-        <>
-          <label className="soal">{tugas.soal[i][0]}</label><br />
-          <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal()} /><br />
-          <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal()} /><br />
-          <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal()} /><br />
-          <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal()} /><br />
-          <br />
-        </>
-      )
-    }
   }
   
   window.onload = () => getTugas()
