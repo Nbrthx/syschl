@@ -1,21 +1,27 @@
 const express = require("express")
 const path = require("path")
 const pg = require("pg")
+const bp = require("body-parser")
 const app = express()
 
 const port = process.env.PORT || 3001
-const psph = process.env.PSPH
+const psph = "justlnh"
 
 const config = {
-  connectionString: process.env.DB_URL,
+  connectionString: "postgres://vgmmvdzlgszvqy:56d8260fd3c2e3da3149b77ec29764ff8d97c1bff70a8bb4a4765a6cb8e193dd@ec2-54-157-15-228.compute-1.amazonaws.com:5432/d44e62pftbun22",
   ssl: { rejectUnauthorized: false }
 }
 const pool = new pg.Pool(config)
 
 app.use(express.static(__dirname+"/client/build"))
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
 
 app.post("/gpsph", (req, res) => {
-  res.json({ "psph": psph })
+  if(req.body.key == "thisfromserv")
+    res.json({ "psph": psph })
+  else
+    res.json({})
 })
 
 app.get("/api", async (req, res) => {

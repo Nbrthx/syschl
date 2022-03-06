@@ -11,10 +11,12 @@ const Register = () => {
     return null
   }
 
+  const [psph, setPsph] = React.useState("")
   const [fname, setFname] = React.useState("")
   const [name, setName] = React.useState("")
   const [pw, setPw] = React.useState("")
   const [repw, setRepw] = React.useState("")
+  const [disbl, setDisbl] = React.useState(false)
 
   const fnameChange = (e) => setFname(e.target.value)
   const nameChange = (e) => setName(e.target.value)
@@ -23,40 +25,68 @@ const Register = () => {
   
   const [msg, setMsg] = React.useState()
 
+  const getPsph = () => {
+    fetch("/gpsph", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'thisfromserv' })
+    })
+    .then(res => res.json())
+    .then(data => { if(data.psph) setPsph(data.psph) })
+  }
+
   const signUp = (exist) => {
-    if(!name || !pw || !repw || !fname ) setMsg("Input must be filled")
-    else if(pw.length < 8) setMsg("Password must be 8 digit")
-    else if(pw !== repw) setMsg("Password & Repassword must be same")
-    else if(!exist){
-      const encpw = Cjs.AES.encrypt(String(pw), "justlnh").toString()
+    if(!name || !pw || !repw || !fname ){
+      setMsg("Input must be filled")
+      setDisbl(false)
+    }
+    else if(pw.length < 8){
+      setMsg("Password must be 8 digit")
+      setDisbl(false)
+    }
+    else if(pw !== repw){
+      setMsg("Password & Repassword must be same")
+      setDisbl(false)
+    }
+    else if(!exist && psph){
+      const encpw = Cjs.AES.encrypt(String(pw), psph).toString()
       console.log(encpw)
       fetch("/api?for=register&&fname="+fname+"&&name="+name+"&&pw="+encpw)
       .then(res => res.json())
       .then(data => { data.succes ? window.location.href = "/" : setMsg("Something Wrong") })
+      setDisbl(false)
     }
-    else setMsg("Username already used")
+    else{
+      setMsg("Username already used")
+      setDisbl(false)
+    }
   }
 
   const getSign = () => {
+    setDisbl(true)
     fetch("/api?for=login&&user="+name)
     .then(res => res.json())
     .then(data => { data.uname ? signUp(true) : signUp(false) })
   }
 
+  window.addEventListener("beforeunload", alert("Hello"))
+
+  window.onload = () => { getPsph() }
+
   return (
     <div className="form">
       <div className="card">
         <h1>Syscuhl App</h1>
-        {msg}<br />
+        <label className="red">{msg}</label><br />
         <label>Name</label><br />
-        <input type="text" value={fname} onChange={fnameChange}/><br />
+        <input className="text" type="text" value={fname} onChange={fnameChange}/><br />
         <label>Username</label><br />
-        <input type="text" value={name} onChange={nameChange}/><br />
+        <input className="text" type="text" value={name} onChange={nameChange}/><br />
         <label>Password</label><br />
-        <input type="password" value={pw} onChange={pwChange}/><br />
+        <input className="text" type="password" value={pw} onChange={pwChange}/><br />
         <label>Re-Password</label><br />
-        <input type="password" value={repw} onChange={repwChange} /><br />
-        <button onClick={getSign}>Register</button><br />
+        <input className="text" type="password" value={repw} onChange={repwChange} /><br />
+        <button className="submit" disabled={disbl} onClick={getSign}>Register</button><br />
       </div>
     </div>
   )

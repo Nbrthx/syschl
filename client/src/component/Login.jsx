@@ -11,47 +11,68 @@ const Login = () => {
     return null
   }
 
-  console.log(process.env)
-
-  const [results, setResults] = React.useState([])
+  const [psph, setPsph] = React.useState("")
   const [name, setName] = React.useState("")
   const [pw, setPw] = React.useState("")
+  const [disbl, setDisbl] = React.useState(false)
 
   const nameChange = (e) => setName(e.target.value)
   const pwChange = (e) => setPw(e.target.value)
   
   const [msg, setMsg] = React.useState()
 
-  const signIn = () => {
-    if(results[0] != null){
-      var uname = results[0]
-      var pword = Cjs.AES.decrypt(results[1], "justlnh").toString(Cjs.enc.Utf8)
+  const getPsph = () => {
+    fetch("/gpsph", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'thisfromserv' })
+    })
+    .then(res => res.json())
+    .then(data => { if(data.psph) setPsph(data.psph) })
+  }
+
+  const signIn = (results) => {
+    if(name === "" || pw === ""){
+      setMsg("Input must be filled")
+      setDisbl(false)
+    }
+    else if(results.uname != null){
+      var uname = results.uname
+      var pword = Cjs.AES.decrypt(results.pword, psph).toString(Cjs.enc.Utf8)
       if(uname === name.toLowerCase() && pword === pw){
         cookies.set("user", name.toLowerCase(), { path: "/" })
         window.location.href = "/"
+        setDisbl(false)
       }
-      else setMsg("Username or Password Incorrect!")
+      else{
+        setMsg("Username or password incorrect!")
+        setDisbl(false)
+      }
+    }else{
+      setMsg("Username or password incorrect!")
+      setDisbl(false)
     }
   }
 
   const getSign = () => {
+    setDisbl(true)
     fetch("/api?for=login&&user="+name)
     .then(res => res.json())
-    .then(data => { if(data.uname) setResults([data.uname, data.pword]) })
+    .then(data => { signIn(data) })
   }
 
-  React.useEffect(() => signIn(), [results])
+  window.onload = () => { getPsph() }
 
   return (
     <div className="form">
       <div className="card">
         <h1>Syscuhl App</h1>
-        <label>{msg}</label><br />
+        <label className="red">{msg}</label><br />
         <label>Name</label><br />
-        <input type="text" value={name} onChange={nameChange}/><br />
+        <input className="text" type="text" value={name} onChange={nameChange}/><br />
         <label>Password</label><br />
-        <input type="password" value={pw} onChange={pwChange} /><br />
-        <button className="submit" onClick={getSign}>Login</button><br />
+        <input className="text" type="password" value={pw} onChange={pwChange} /><br />
+        <button className="submit" disabled={disbl} onClick={getSign}>Login</button><br />
       </div>
     </div>
   )

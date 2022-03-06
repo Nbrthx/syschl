@@ -32,7 +32,11 @@ body{
 	color: #fff;
 	font-weight: bold;
 }
-.form .card input{
+.form .card .submit:disabled{
+	background: #768;
+	color: #333;
+}
+.form .card .text{
 	padding: 4px 8px;
 	border: 1px solid #73b;
 	width: 100%;
@@ -40,6 +44,9 @@ body{
 	margin:  8px 0;
 	background: #fff;
 	color: #000;
+}
+.red{
+	color: red;
 }
 .dashboard .card{
 	margin: 60px 40px;
