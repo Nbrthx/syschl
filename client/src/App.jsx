@@ -3,6 +3,7 @@ import React from "react"
 import Index from "./component/Index"
 import Login from "./component/Login"
 import Register from "./component/Register"
+import Tugas from "./component/Tugas"
 import "./style.css"
 
 function Router(props) {
@@ -18,6 +19,7 @@ class App extends React.Component{
         <Router path="/" page={Index} />
         <Router path="/login" page={Login} />
         <Router path="/register" page={Register} />
+        <Router path="/tugas" page={Tugas} />
       </div>
     )
   }
