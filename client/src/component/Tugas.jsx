@@ -13,16 +13,9 @@ const Tugas = () => {
   const urls = new URLSearchParams(window.location.search)
   const tid = urls.get("id")
   
-  const [tugas, setTugas] = React.useState({})
   const [pilgan, setPilgan] = React.useState([])
   
-  const getTugas = () => {
-    fetch("/api?for=tugas&&id="+tid)
-    .then(res => res.json())
-    .then(data => setTugas(data))
-  }
-  
-  const soal = () => {
+  const soal = (tugas) => {
     if(tugas.soal)
       for(var i = 0; i < tugas.soal.length; i++){
         setPilgan(pilgan.concat("a"))
@@ -43,6 +36,12 @@ const Tugas = () => {
           </>
         )
       }
+  }
+  
+  const getTugas = () => {
+    fetch("/api?for=tugas&&id="+tid)
+    .then(res => res.json())
+    .then(data => soal(data))
   }
   
   window.onload = () => { getTugas() }
