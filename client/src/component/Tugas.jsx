@@ -23,17 +23,17 @@ const Tugas = () => {
 
         const handleSoal = (e) => {
           var newpilgan = pilgan
-          newpilgan[i] = e
+          newpilgan[i] = e.target.value
           setPilgan(newpilgan)
         }
 
         return (
           <>
             <label className="soal">{tugs.soal[i][0]}</label><br />
-            <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal("a")} /><br />
-            <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal("b")} /><br />
-            <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal("c")} /><br />
-            <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal("d")} /><br />
+            <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal} /><br />
+            <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal} /><br />
+            <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal} /><br />
+            <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal} /><br />
             <br />
           </>
         )
@@ -52,7 +52,7 @@ const Tugas = () => {
     <div className="tugas">
       <div class="card">
         <h1>{tugs.name}</h1>
-        {soal()}
+        {() => soal()}
       </div>
     </div>
   )
