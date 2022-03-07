@@ -52,7 +52,7 @@ const Index = () => {
           Kelas: {userData.kelas}
         </div>
         <div className="tugas">
-          {listTugas()}
+          {() => listTugas()}
         </div>
       </div>
     </div>
