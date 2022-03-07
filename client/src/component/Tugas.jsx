@@ -40,19 +40,17 @@ const Tugas = () => {
       }
   }
   
-  const getTugas = () => {
+  React.useEffect(() => {
     fetch("/api?for=tugas&&id="+tid)
     .then(res => res.json())
     .then(data => { if(data) setTugs(data) })
-  }
-  
-  window.onload = () => { getTugas() }
+  }, [])
 
   return (
     <div className="tugas">
       <div class="card">
         <h1>{tugs.name}</h1>
-        {() => soal()}
+        {soal()}
       </div>
     </div>
   )
