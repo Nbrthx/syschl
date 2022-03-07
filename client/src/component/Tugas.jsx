@@ -15,25 +15,26 @@ const Tugas = () => {
   
   const [tugs, setTugs] = React.useState({})
   const [pilgan, setPilgan] = React.useState([])
+
+  const handleSoal = (e) => {
+    var newpilgan = pilgan
+    newpilgan[e.target.name] = e.target.value
+    setPilgan(newpilgan)
+  }
   
+  var all_soal = []
   const soal = () => {
     if(tugs.soal)
       for(var i = 0; i < tugs.soal.length; i++){
-        setPilgan(pilgan.concat("a"))
+        setPilgan(pilgan.concat("_"))
 
-        const handleSoal = (e) => {
-          var newpilgan = pilgan
-          newpilgan[i] = e.target.value
-          setPilgan(newpilgan)
-        }
-
-        return (
+        all_soal.push(
           <>
             <label className="soal">{tugs.soal[i][0]}</label><br />
-            <input type="radio" value="a" checked={pilgan[i] === "a"} onChange={handleSoal} /><br />
-            <input type="radio" value="b" checked={pilgan[i] === "b"} onChange={handleSoal} /><br />
-            <input type="radio" value="c" checked={pilgan[i] === "c"} onChange={handleSoal} /><br />
-            <input type="radio" value="d" checked={pilgan[i] === "d"} onChange={handleSoal} /><br />
+            <input type="radio" name={i} value="a" checked={pilgan[i] === "a"} onChange={handleSoal} /><br />
+            <input type="radio" name={i} value="b" checked={pilgan[i] === "b"} onChange={handleSoal} /><br />
+            <input type="radio" name={i} value="c" checked={pilgan[i] === "c"} onChange={handleSoal} /><br />
+            <input type="radio" name={i} value="d" checked={pilgan[i] === "d"} onChange={handleSoal} /><br />
             <br />
           </>
         )
@@ -50,7 +51,7 @@ const Tugas = () => {
     <div className="tugas">
       <div class="card">
         <h1>{tugs.name}</h1>
-        {soal()}
+        {all_soal}
       </div>
     </div>
   )
