@@ -1,17 +1,23 @@
 {
-  "name": "nextix",
-  "description": "School Application",
-  "version": "0.0.0",
-  "main": "app.js",
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "start": "node app.js",
-    "build": "cd client && npm install && npm run build"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "node index.js"
   },
-  "author": "Ektada Benabi",
-  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "rollup": "^2.3.4",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
+  },
   "dependencies": {
     "express": "^4.17.3",
     "pg": "^8.7.3",
-    "body-parser": "^1.19.2"
+    "body-parser": "^1.19.2",
+    "crypto-js": "^4.1.1"
   }
 }
