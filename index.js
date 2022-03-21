@@ -1,6 +1,7 @@
 const express= require("express")
 const path = require("path")
 const pg = require("pg")
+const cjs = require("crypto-js")
 const bp = require("body-parser")
 
 const app = express()
@@ -21,7 +22,8 @@ app.get("/api", async (req, res) => {
         const user = req.query.user
         const pw = req.query.pw
         const data = await pool.query("select uname, pword from users where uname='"+user+"'").rows[0]
-        if(data.id == user && data.password == pw)
+        const decpw = cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8)
+        if(data.id == user && decpw == pw)
             res.json({ authed: true })
         else res.json({})
     }
