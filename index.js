@@ -21,8 +21,9 @@ app.get("/api", async (req, res) => {
         const user = req.query.user
         const pw = req.query.pw
         const data = await pool.query("select uname, pword from users where uname='"+user+"'").rows[0]
-        if(data.id == user && data.)
-        res.json(data.rows[0] || {})
+        if(data.id == user && data.password == pw)
+            res.json({ authed: true })
+        else res.json({})
     }
     else if(req.query.for == "register"){
         const fname = req.query.fname
