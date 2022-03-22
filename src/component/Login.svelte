@@ -1,6 +1,5 @@
 <script>
 	import { cktool } from "./cktool.js"
-	const cjs = require("cryptojs")
 
 	let user = cktool.get("user")
 
@@ -8,21 +7,22 @@
 	let password = ""
 	let msg = ""
 
-	function auth(data){
-		let enpw = cjs.AES.encrypt(password, "justlnh")
+	function submit(){
 		if(!name || !password) msg = "Input must be filled"
-		else if(password.length < 8) msg = "Password musd be more 8 character"
-		else if(name != data.id && enpw != data.password) msg = "Input incorrect"
-		else {
-			cktool.set("user", name)
-			location.href = "/"
-		}
+		else if(password.length < 8) msg = "Password must be more 8 character"
+                else auth()
 	}
 
-	function submit(){
-		fetch("/api?for=login&&user="+name+"&&pw=")
+	function auth(){
+		fetch("/api?for=login&&user="+name+"&&pw="+password)
 		.then(res => res.json())
-		.then(data => auth(data))
+		.then(data => {
+                        if(data.auth) {
+                                cktool.set("user", data.name)
+                                location.href = "/"
+                        }
+                        else msg = "Username or password incorrect"
+                })
 		.catch(err => { throw err })
 	}
 </script>
