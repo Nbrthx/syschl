@@ -19,23 +19,28 @@ app.use(bp.urlencoded({ extended: true }))
 
 app.get("/api", async (req, res) => {
     if(req.query.for == "login"){
-        const user = req.query.user
+        const id = req.query.id
         const pw = req.query.pw
-        const data = await pool.query("select uname, pword from users where uname='"+user+"'").rows[0]
-        const decpw = cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8)
+        const data = await pool.query("select id, password from users where id='"+user+"'").rows[0]
+        const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) || ""
         if(data.id == user && decpw == pw)
             res.json({ authed: true })
         else res.json({})
     }
+    else if(req.query.for == "exists"){
+        const id = req.query.id
+        const data = await pool.query("select id from users where id='"+id+"'")
+    }
     else if(req.query.for == "register"){
-        const fname = req.query.fname
         const name = req.query.name
+        const id = req.query.id
         const pw = req.query.pw
-        pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)", (err, data) => {
-        if(err) throw err
-        else if(data.rowCount > 0) res.json({ succes: true })
-        else res.json({ succes: false })
-        })
+        if(!name || !id || !pw) res.json({})
+        else pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)", (err, data) => {
+                if(err) throw err
+                else if(data.rowCount > 0) res.json({ succes: true })
+                else res.json({ succes: false })
+            })
     }
     else if(req.query.for == "data"){
         const user = req.query.user
