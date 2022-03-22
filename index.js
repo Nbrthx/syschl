@@ -30,6 +30,7 @@ app.get("/api", async (req, res) => {
     else if(req.query.for == "exists"){
         const id = req.query.id
         const data = await pool.query("select id from users where id='"+id+"'")
+        res.json(data.id ? { e: true } : { e: false })
     }
     else if(req.query.for == "register"){
         const name = req.query.name
