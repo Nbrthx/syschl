@@ -23,21 +23,23 @@ app.get("/api", async (req, res) => {
         const pw = req.query.pw
         const data = await pool.query("select id, password from users where id='"+user+"'").rows[0]
         const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) || ""
-        if(data.id == user && decpw == pw)
-            res.json({ authed: true })
+        if(data.id == id && decpw == pw)
+            res.json({ id: data.id })
         else res.json({})
     }
     else if(req.query.for == "exists"){
         const id = req.query.id
         const data = await pool.query("select id from users where id='"+id+"'")
-        res.json(data.id ? { e: true } : { e: false })
+        res.json(data.id ? { user: true } : {})
     }
     else if(req.query.for == "register"){
         const name = req.query.name
         const id = req.query.id
         const pw = req.query.pw
+        const class = req.query.class
+        const encpw = cjs.AES.encrypt(pw, "justlnh")
         if(!name || !id || !pw) res.json({})
-        else pool.query("insert into users values ('"+name+"', '"+fname+"', '"+pw+"', 0, 0)", (err, data) => {
+        else pool.query("insert into users values ('"+id+"', '"+name+"', '"+encpw+"', 0, 0,'"+class+"')", (err, data) => {
                 if(err) throw err
                 else if(data.rowCount > 0) res.json({ succes: true })
                 else res.json({ succes: false })
@@ -48,15 +50,19 @@ app.get("/api", async (req, res) => {
         const data = await pool.query("select * from users where uname='"+user+"'")
         res.json(data.rows[0] || {})
     }
-    else if(req.query.for == "list_tugas"){
+    else if(req.query.for == "list_task"){
         const kelas = req.query.kelas
         const data = await pool.query("select id, name from tugas where kelas='"+kelas+"'")
         res.json(data.rows || [])
     }
-    else if(req.query.for == "tugas"){
+    else if(req.query.for == "task"){
         const id = req.query.id
         const data = await pool.query("select * from tugas where id='"+id+"'")
         res.json(data.rows[0] || {})
+    }
+    else if(req.query.for == "list-class"){
+        const data = await pool.query("select * from class")
+        res.json(data.rows || [])
     }
     else res.json({})
 })
