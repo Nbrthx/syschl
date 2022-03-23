@@ -17,8 +17,8 @@
 		fetch("/api?for=login&&user="+name+"&&pw="+password)
 		.then(res => res.json())
 		.then(data => {
-                        if(data.auth) {
-                                cktool.set("user", data.name)
+                        if(data.id) {
+                                cktool.set("user", data.id)
                                 location.href = "/"
                         }
                         else msg = "Username or password incorrect"
