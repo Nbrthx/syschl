@@ -21,7 +21,7 @@ app.get("/api", async (req, res) => {
     if(req.query.for == "login"){
         const id = req.query.id
         const pw = req.query.pw
-        const data = await pool.query("select id, password from users where id='"+user+"'").rows[0]
+        const data = await pool.query("select id, password from users where id='"+id+"'").rows[0]
         const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) : null
         if(data.id == id && decpw && decpw == pw)
             res.json({ id: data.id })
