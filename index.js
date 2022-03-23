@@ -21,46 +21,52 @@ app.get("/api", async (req, res) => {
     if(req.query.for == "login"){
         const id = req.query.id
         const pw = req.query.pw
-        const data = (await pool.query("select id, password from users where id='"+id+"'")).rows[0] || {}
-        const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) : null
-        if(data.id == id && decpw && decpw == pw)
-            res.json({ id: data.id })
-        else res.json({})
+        pool.query("select id, password from users where id='"+id+"'", (err, row) => {
+            const data = row.rows[0]
+            const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) : null
+            console.log(decpw)
+            if(data.id == id && decpw && decpw == pw)
+                res.json({ id: id })
+            else res.json({})
+        })
     }
-    else if(req.query.for == "exists"){
+    else if(req.query.for == "exist"){
         const id = req.query.id
-        const data = await pool.query("select id from users where id='"+id+"'")
-        res.json(data.id ? { user: true } : {})
+        pool.query("select id from users where id='"+id+"'", (err, row) => {
+            const data = row.rows[0] || {}
+            if(data.id) res.json({ id: id })
+            else res.json({})
+        })
     }
     else if(req.query.for == "register"){
-        const name = req.query.name
         const id = req.query.id
+        const name = req.query.name
         const pw = req.query.pw
         const tier = req.query.tier
-        const encpw = cjs.AES.encrypt(pw, "justlnh")
-        if(!name || !id || !pw) res.json({})
-        else pool.query("insert into users values ('"+id+"', '"+name+"', '"+encpw+"', 0, 0,'"+tier+"')", (err, data) => {
-                if(err) throw err
-                else if(data.rowCount > 0) res.json({ succes: true })
-                else res.json({ succes: false })
-            })
+        const decpw = cjs.AES.encrypt(pw, "justlnh")
+        pool.query("insert into users values ('"+id+"', '"+decpw+"', '"+name+"', 0, 0, '"+tier+"')", (err, data) => {
+            if(err) throw err
+            else if(data.rowCount > 0) res.json({ succes: true })
+            else res.json({ succes: false })
+        })
     }
     else if(req.query.for == "data"){
-        const user = req.query.user
-        const data = await pool.query("select * from users where uname='"+user+"'")
+        const id = req.query.id
+        const data = await pool.query("select * from users where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
-    else if(req.query.for == "list_task"){
-        const kelas = req.query.kelas
-        const data = await pool.query("select id, name from tugas where kelas='"+kelas+"'")
+    else if(req.query.for == "list-task"){
+        const tier = req.query.tier
+        const data = await pool.query("select id, name from taskmc where tiers='"+tier+"'")
         res.json(data.rows || [])
     }
     else if(req.query.for == "task"){
         const id = req.query.id
-        const data = await pool.query("select * from tugas where id='"+id+"'")
+        const data = await pool.query("select * from taskmc where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
-    else if(req.query.for == "list-tier"){
+    else if(req.query.for == "list-tiers"){
+        const id = req.query.id
         const data = await pool.query("select * from tiers")
         res.json(data.rows || [])
     }
