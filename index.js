@@ -36,10 +36,10 @@ app.get("/api", async (req, res) => {
         const name = req.query.name
         const id = req.query.id
         const pw = req.query.pw
-        const class = req.query.class
+        const tier = req.query.tier
         const encpw = cjs.AES.encrypt(pw, "justlnh")
         if(!name || !id || !pw) res.json({})
-        else pool.query("insert into users values ('"+id+"', '"+name+"', '"+encpw+"', 0, 0,'"+class+"')", (err, data) => {
+        else pool.query("insert into users values ('"+id+"', '"+name+"', '"+encpw+"', 0, 0,'"+tier+"')", (err, data) => {
                 if(err) throw err
                 else if(data.rowCount > 0) res.json({ succes: true })
                 else res.json({ succes: false })
@@ -60,8 +60,8 @@ app.get("/api", async (req, res) => {
         const data = await pool.query("select * from tugas where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
-    else if(req.query.for == "list-class"){
-        const data = await pool.query("select * from class")
+    else if(req.query.for == "list-tier"){
+        const data = await pool.query("select * from tiers")
         res.json(data.rows || [])
     }
     else res.json({})
