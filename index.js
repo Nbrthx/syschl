@@ -3,9 +3,11 @@ const path = require("path")
 const pg = require("pg")
 const cjs = require("crypto-js")
 const bp = require("body-parser")
+const cp = require("cookie-parser")
 
 const app = express()
 const port = process.env.PORT || 8080
+const psph = "justlnh"
 
 const config = {
     connectionString: "postgres://ycondiiz:SSEV0817KPhpRec6bHWHHZb1SI-uFaUp@topsy.db.elephantsql.com/ycondiiz",
@@ -16,17 +18,24 @@ const pool = new pg.Pool(config)
 app.use(express.static(path.join(__dirname, "public")))
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
+app.use(cp())
 
+app.post("/decrypt", (req, res) => {
+    const value = req.body.value
+    const decv = cjs.AES.decrypt(value, psph).toString(cjs.enc.Utf8)
+    res.json({ result: decv })
+})
 app.get("/api", async (req, res) => {
     if(req.query.for == "login"){
         const id = req.query.id
         const pw = req.query.pw
         pool.query("select id, password from users where id='"+id+"'", (err, row) => {
-            const data = row.rows[0]
-            const decpw = data.password ? cjs.AES.decrypt(data.password, "justlnh").toString(cjs.enc.Utf8) : null
-            console.log(decpw)
-            if(data.id == id && decpw && decpw == pw)
-                res.json({ id: id })
+            const data = row.rows[0] || {}
+            const decpw = data.password ? cjs.AES.decrypt(data.password, psph).toString(cjs.enc.Utf8) : null
+            if(data.id == id && decpw && decpw == pw){
+                res.cookie("user", cjs.AES.encrypt(id, psph))
+                res.redirect("/")
+            }
             else res.json({})
         })
     }
@@ -43,7 +52,7 @@ app.get("/api", async (req, res) => {
         const name = req.query.name
         const pw = req.query.pw
         const tier = req.query.tier
-        const decpw = cjs.AES.encrypt(pw, "justlnh")
+        const decpw = cjs.AES.encrypt(pw, psph)
         pool.query("insert into users values ('"+id+"', '"+decpw+"', '"+name+"', 0, 0, '"+tier+"')", (err, data) => {
             if(err) throw err
             else if(data.rowCount > 0) res.json({ succes: true })
@@ -57,13 +66,32 @@ app.get("/api", async (req, res) => {
     }
     else if(req.query.for == "list-task"){
         const tier = req.query.tier
-        const data = await pool.query("select id, name from taskmc where tiers='"+tier+"'")
-        res.json(data.rows || [])
+        const id = req.query.id
+        const data = (await pool.query("select id, name from taskmc where tiers='"+tier+"'")).rows
+        const taskdone = (await pool.query("select taskid from collecttask where userid='"+id+"'")).rows
+        
+        let newarr = data.map(i => { return i.id })
+
+        taskdone.map(i => { if(newarr.includes(i.taskid)) data.splice(data.indexOf(i.taskid), 1) })
+
+        console.log(newarr)
+
+        res.json(data || [])
     }
     else if(req.query.for == "task"){
         const id = req.query.id
         const data = await pool.query("select * from taskmc where id='"+id+"'")
         res.json(data.rows[0] || {})
+    }
+    else if(req.query.for = "answer"){
+        const id = req.query.id
+        const task = req.query.task
+        const answer = req.query.answer.replace("[", "{").replace("]", "}")
+        pool.query("insert into collecttask values (nextval('auto_id'),'"+task+"', '"+id+"', '"+answer+"')", (err, data) => {
+            if(err) throw err
+            else if(data.rowCount > 0) res.json({ succes: true })
+            else res.json({ succes: false })
+        })
     }
     else if(req.query.for == "list-tiers"){
         const id = req.query.id

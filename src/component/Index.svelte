@@ -20,7 +20,7 @@
 	}
 
 	function getTask(tier){
-		fetch("/api?for=list-task&&tier="+tier)
+		fetch("/api?for=list-task&&tier="+tier+"&&id="+user)
 		.then(res => res.json())
 		.then(data => {
 			tasks = data
@@ -30,15 +30,15 @@
 	if(user) getUserid()
 </script>
 { #if user }
-<h1>Hello {user}!</h1>
-<strong>Name:</strong> {userid.name}<br />
+<h1>Hello {userid.name}!</h1>
+<strong>Username:</strong> {user}<br />
 <strong>Kehadiran:</strong> {userid.attend}<br />
 <strong>Skor:</strong> {userid.score}<br />
 <strong>Kelas:</strong> {userid.tiers}<br />
 <br />
 <h2>Kerjaanmu</h2>
 { #each tasks as task }
-<a href="/tasks?id={task.id}">{task.name}</a><br />
+<a href="/task?id={task.id}">{task.name}</a><br />
 { /each }
 { :else }
 <script>
