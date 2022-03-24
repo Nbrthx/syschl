@@ -14,7 +14,7 @@
 	}
 
 	function getdata(){
-		fetch("/api?for=login&&user="+id+"&&pw="+password)
+		fetch("/api?for=login&&id="+id+"&&pw="+password)
 		.then(res => res.json())
 		.then(data => {
 			if(data.id){
