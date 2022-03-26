@@ -1,5 +1,5 @@
 export const cktool = {
-    get: async key => {
+    get: key => {
         const cstring = document.cookie
         const cookies = (cstring)? cstring
             .split("; ")
@@ -17,13 +17,13 @@ export const cktool = {
             }
         }
 
-        const decc = ""
-
-        await function gdecc(){
+        function gdecc(){
             fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => decc = data.result)
+            .then(data => return data.result)
         }
+
+        const decc = gdecc()
         console.log(decc)
         return decc
     },
