@@ -21,7 +21,8 @@ app.use(bp.urlencoded({ extended: true }))
 app.use(cp())
 
 app.post("/decrypt", (req, res) => {
-    const value = req.body.value
+    const value = req.body.value || ""
+    console.log(value)
     const decv = cjs.AES.decrypt(value, psph).toString(cjs.enc.Utf8)
     res.json({ result: decv })
 })
