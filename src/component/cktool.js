@@ -13,7 +13,7 @@ export const cktool = {
         async function decc(){
             fetch("/decrypt", { method: "POST", body: { value: cookies[key] } })
             .then(res => res.json())
-            .then(data => { row = data })
+            .then(data => { console.log(data) })
             .catch(err => { throw err })
         }
         
