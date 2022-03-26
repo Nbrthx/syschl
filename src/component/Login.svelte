@@ -18,7 +18,6 @@
 		.then(res => res.json())
 		.then(data => {
 			if(data.id){
-				cktool.set("user", data.id)
 				location.href = "/"
 			}
 			else msg = "Input incorrect"
