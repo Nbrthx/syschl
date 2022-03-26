@@ -45,7 +45,6 @@
 		.then(res => res.json())
 		.then(data => {
 			if(data.succes){
-				cktool.set("user", id)
 				location.href = "/"
 			}
 		})
