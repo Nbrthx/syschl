@@ -1,5 +1,5 @@
 export const cktool = {
-    get: key => {
+    get: async key => {
         const cstring = document.cookie
         const cookies = (cstring)? cstring
             .split("; ")
