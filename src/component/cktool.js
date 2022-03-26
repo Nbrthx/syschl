@@ -13,7 +13,7 @@ export const cktool = {
 
         const option = {
             method: "POST",
-            body: JSON.stringify({ value: cookies[key] })
+            body: JSON.stringify({ value: cookies[key] }),
             headers: {
                 'Content-Type': 'application/json'
             }
