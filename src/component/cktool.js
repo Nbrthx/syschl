@@ -9,14 +9,15 @@ export const cktool = {
                 return acc;
             }, {}) : {}
         
-        function decc(){
+        const row = {}
+        async function decc(){
             fetch("/decrypt", { method: "POST", body: { value: cookies[key] } })
             .then(res => res.json())
-            .then(data => { return data })
+            .then(data => { row = data })
             .catch(err => { throw err })
         }
         
-        return decc.result
+        return row.result
     },
     set: (key, value) => {
         if(value != null) document.cookie = key+"="+value+"; secure"
