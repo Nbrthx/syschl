@@ -22,7 +22,7 @@ export const cktool = {
         function decc(){
             fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => { row(data) })
+            .then(data => { row = data })
             .catch(err => { throw err })
         }
         decc()
