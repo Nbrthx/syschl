@@ -10,12 +10,13 @@ export const cktool = {
             }, {}) : {}
         
         const row = {}
-        async function decc(){
+        function decc(){
             fetch("/decrypt", { method: "POST", body: { value: cookies[key] } })
             .then(res => res.json())
             .then(data => { console.log(data) })
             .catch(err => { throw err })
         }
+        decc()
         
         return row.result
     },
