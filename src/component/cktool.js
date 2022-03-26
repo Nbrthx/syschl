@@ -10,10 +10,19 @@ export const cktool = {
             }, {}) : {}
         
         const row = {}
+
+        const option = {
+            method: "POST",
+            body: JSON.stringify({ value: cookies[key] })
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
         function decc(){
-            fetch("/decrypt", { method: "POST", body: { value: cookies[key] } })
+            fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => { console.log(data) })
+            .then(data => { row(data) })
             .catch(err => { throw err })
         }
         decc()
