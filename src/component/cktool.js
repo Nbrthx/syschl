@@ -18,13 +18,11 @@ export const cktool = {
         }
 
         function decc(){
-            this.result = {}
             fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => { this.result = data.result })
+            .then(data => { return data.result })
             .catch(err => { throw err })
             console.log(result)
-            return this.result
         }
         
         return decc
