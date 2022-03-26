@@ -17,8 +17,8 @@ export const cktool = {
             }
         }
 
-        const decc = await fetch("/decrypt", option).then(res => res.json()).then(data => { data })
-        console.log(decc.result)
+        const decc = await fetch("/decrypt", option).then(res => res.json())
+        console.log(await decc.result)
         return decc.result
     },
     set: (key, value) => {
