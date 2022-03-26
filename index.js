@@ -34,7 +34,7 @@ app.get("/api", async (req, res) => {
             const decpw = data.password ? cjs.AES.decrypt(data.password, psph).toString(cjs.enc.Utf8) : null
             if(data.id == id && decpw && decpw == pw){
                 res.cookie("user", cjs.AES.encrypt(id, psph).toString())
-                res.redirect("/")
+                res.json({ id: id })
             }
             else res.json({})
         })
@@ -55,7 +55,10 @@ app.get("/api", async (req, res) => {
         const decpw = cjs.AES.encrypt(pw, psph)
         pool.query("insert into users values ('"+id+"', '"+decpw+"', '"+name+"', 0, 0, '"+tier+"')", (err, data) => {
             if(err) throw err
-            else if(data.rowCount > 0) res.json({ succes: true })
+            else if(data.rowCount > 0){
+                res.cookie("user", cjs.AES.encrypt(id, psph).toString())
+                res.json({ succes: true })
+            }
             else res.json({ succes: false })
         })
     }
