@@ -17,9 +17,15 @@ export const cktool = {
             }
         }
 
-        const decc = await fetch("/decrypt", option).then(res => res.json())
-        console.log(await decc.result)
-        return decc.result
+        const decc = ""
+
+        await function gdecc(){
+            fetch("/decrypt", option)
+            .then(res => res.json())
+            .then(data => decc = data.result)
+        }
+        console.log(decc)
+        return decc
     },
     set: (key, value) => {
         if(value != null) document.cookie = key+"="+value+"; secure"
