@@ -26,7 +26,7 @@ export const cktool = {
             .catch(err => { throw err })
         }
         decc()
-        
+        console.log(row)
         return row.result
     },
     set: (key, value) => {
