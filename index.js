@@ -33,7 +33,7 @@ app.get("/api", async (req, res) => {
             const data = row.rows[0] || {}
             const decpw = data.password ? cjs.AES.decrypt(data.password, psph).toString(cjs.enc.Utf8) : null
             if(data.id == id && decpw && decpw == pw){
-                res.cookie("user", cjs.AES.encrypt(id, psph))
+                res.cookie("user", cjs.AES.encrypt(id, psph).toString())
                 res.redirect("/")
             }
             else res.json({})
