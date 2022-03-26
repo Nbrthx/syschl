@@ -20,7 +20,8 @@ export const cktool = {
         function gdecc(){
             fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => return data.result)
+            .then(data => { return data.result }
+)
         }
 
         const decc = gdecc()
