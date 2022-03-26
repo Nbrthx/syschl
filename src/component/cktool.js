@@ -18,8 +18,7 @@ export const cktool = {
         }
 
         function decc(){
-            return 
-fetch("/decrypt", option)
+            fetch("/decrypt", option)
             .then(res => res.json())
             .then(data => { return data.result })
             .catch(err => { throw err })
