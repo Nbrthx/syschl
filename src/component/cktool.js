@@ -9,8 +9,6 @@ export const cktool = {
                 return acc;
             }, {}) : {}
         
-        let row = {}
-
         const option = {
             method: "POST",
             body: JSON.stringify({ value: cookies[key] }),
@@ -20,14 +18,13 @@ export const cktool = {
         }
 
         function decc(){
-            fetch("/decrypt", option)
+            return fetch("/decrypt", option)
             .then(res => res.json())
-            .then(data => { row = data })
+            .then(data => { return data })
             .catch(err => { throw err })
         }
-        decc()
-        console.log(row)
-        return row.result
+        
+        return decc.result
     },
     set: (key, value) => {
         if(value != null) document.cookie = key+"="+value+"; secure"
