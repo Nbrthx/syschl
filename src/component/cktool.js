@@ -9,7 +9,7 @@ export const cktool = {
                 return acc;
             }, {}) : {}
         
-        const row = {}
+        let row = {}
 
         const option = {
             method: "POST",
