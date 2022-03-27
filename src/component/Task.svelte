@@ -1,28 +1,13 @@
 <script>
-	import { cktool } from "./cktool.js"
-	let user = cktool.get("user")
+	import User from "./User"
+	let user = User()
 
 	let urlp = new URLSearchParams(location.search)
 
-	let userid = {
-		name: "null",
-		attend: 0,
-		score: 0,
-		tiers: "null"
-	}
 	let task = {
 		question: []
 	}
 	let mchoice = []
-
-	function getUserid(){
-		fetch("/api?for=data&&id="+user)
-		.then(res => res.json())
-		.then(data => {
-			userid = data
-		})
-		.catch(err => { throw err })
-	}
 
 	function getTask(){
 		fetch("/api?for=task&&id="+urlp.get("id"))
@@ -30,7 +15,6 @@
 		.then(data => {
 			task = data
 			for(let i of data.question) mchoice.push("_")
-			getUserid()
 		})
 		.catch(err => { throw err })
 	}

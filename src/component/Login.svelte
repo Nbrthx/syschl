@@ -1,7 +1,6 @@
 <script>
-	import { cktool } from "./cktool.js"
-
-	let user = cktool.get("user")
+	import User from "./User"
+	let user = User()
 
 	let id = ""
 	let password = ""

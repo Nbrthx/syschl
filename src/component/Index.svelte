@@ -1,6 +1,6 @@
 <script>
-	import { cktool } from "./cktool.js"
-	let user = cktool.get("user")
+	import User from "./User"
+	let user = User()
 
 	let userid = {
 		name: "null",
@@ -31,7 +31,7 @@
 </script>
 { #if user }
 <h1>Hello {userid.name}!</h1>
-<strong>Username:</strong> {user}<br />
+<strong>Username:</strong> {userid.id}<br />
 <strong>Kehadiran:</strong> {userid.attend}<br />
 <strong>Skor:</strong> {userid.score}<br />
 <strong>Kelas:</strong> {userid.tiers}<br />
