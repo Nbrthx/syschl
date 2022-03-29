@@ -9,14 +9,17 @@
 	let tiers = []
 	let tier
 	let msg = ""
+	let pend = false
 
 	function getTiers(){
-		fetch("/api?for=list-tiers")
+		pend ? null : fetch("/api?for=list-tiers")
 		.then(res => res.json())
 		.then(data => {
+			pend = false
 			tiers = data
 			tier = data[0].id
 		})
+		pend = true
 	}
 	if(!user) getTiers()
 
@@ -25,29 +28,34 @@
 		else if(id.length < 6) msg = "Username must be more 6 character"
 		else if(password.length < 8) msg = "Password must be more 8 character"
 		else if(password != repassword) msg = "Password and repassword must be same"
-		else {
-			auth()
-		}
+		else auth()
 	}
 
 	function auth(){
-		fetch("/api?for=exist&&id="+id)
+		pend ? null : fetch("/api?for=exist&&id="+id)
 		.then(res => res.json())
 		.then(data => {
+			pend = false
 			if(data.id) msg = "Username already used"
 			else add()
 		})
 		.catch(err => { throw err })
+		pend = true
 	}
 	function add(){
-		fetch("/api?for=register&&id="+id+"&&pw="+password+"&&name="+name+"&&tier="+tier)
+		pend ? null : fetch("/api?for=register&&id="+id+"&&pw="+password+"&&name="+name+"&&tier="+tier)
 		.then(res => res.json())
 		.then(data => {
+			pend = false
 			if(data.succes){
 				location.href = "/"
 			}
 		})
 		.catch(err => { throw err })
+		pend = true
+	}
+	document.onkeydown = (e) => {
+		if(e.which == 13) submit()
 	}
 </script>
 { #if !user }
@@ -67,7 +75,7 @@
 <option value={tir.id}>{tir.name}</option>
 { /each }
 </select>
-<button on:click={submit}>Submit</button>
+<input type="submit" on:click={submit} value="Submit" />
 { :else }
 <script>
 	location.href = "/"

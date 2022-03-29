@@ -3,6 +3,7 @@
 	import Login from "./component/Login.svelte"
 	import Register from "./component/Register.svelte"
 	import Task from "./component/Task.svelte"
+	import AddTask from "./component/AddTask.svelte"
 
 	let path = location.pathname
 </script>
@@ -14,6 +15,8 @@
 <Register />
 { :else if path === "/task" }
 <Task />
+{ :else if path === "/addtask" }
+<AddTask />
 { :else }
 Error 404 Not Found
 { /if }

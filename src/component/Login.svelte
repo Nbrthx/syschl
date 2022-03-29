@@ -5,23 +5,29 @@
 	let id = ""
 	let password = ""
 	let msg = ""
+	let pend = false
 
-	function auth(){
+	function submit(){
 		if(!id || !password) msg = "Input must be filled"
 		else if(password.length < 8) msg = "Password must be more 8 character"
-		else getdata()
+		else auth()
 	}
 
-	function getdata(){
-		fetch("/api?for=login&&id="+id+"&&pw="+password)
+	function auth(){
+		pend ? null : fetch("/api?for=login&&id="+id+"&&pw="+password)
 		.then(res => res.json())
 		.then(data => {
+			pend = false
 			if(data.id){
 				location.href = "/"
 			}
 			else msg = "Input incorrect"
 		})
 		.catch(err => { throw err })
+		pend = true
+	}
+	document.onkeydown = (e) => {
+		if(e.which == 13) submit()
 	}
 </script>
 { #if !user }
@@ -31,7 +37,7 @@
 <input type="text" bind:value={id}><br />
 <strong>Password</strong><br />
 <input type="password" bind:value={password}><br />
-<button on:click={auth}>Submit</button>
+<input type="submit" on:click={submit} value="Submit" />
 { :else }
 <script>
 	location.href = "/"

@@ -64,7 +64,7 @@ app.get("/api", async (req, res) => {
         })
     }
     else if(req.query.for == "data"){
-        const id = cjs.AES.decrypt(req.query.id, psph).toString(cjs.enc.Utf8)
+        const id = req.query.id ? cjs.AES.decrypt(req.query.id, psph).toString(cjs.enc.Utf8) : ""
         const data = await pool.query("select * from users where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
@@ -78,8 +78,6 @@ app.get("/api", async (req, res) => {
 
         taskdone.map(i => { if(newarr.includes(i.taskid)) data.splice(data.indexOf(i.taskid), 1) })
 
-        console.log(newarr)
-
         res.json(data || [])
     }
     else if(req.query.for == "task"){
@@ -87,11 +85,12 @@ app.get("/api", async (req, res) => {
         const data = await pool.query("select * from taskmc where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
-    else if(req.query.for = "answer"){
+    else if(req.query.for == "answer"){
         const id = cjs.AES.decrypt(req.query.id, psph).toString(cjs.enc.Utf8)
         const task = req.query.task
-        const answer = req.query.answer.replace("[", "{").replace("]", "}")
-        pool.query("insert into collecttask values (nextval('auto_id'),'"+task+"', '"+id+"', '"+answer+"')", (err, data) => {
+        const answer = (req.query.answer || "").replace("[", "{").replace("]", "}")
+        const tlength = (await pool.query("SELECT count(*) AS i FROM tiers")).rows[0].i++
+        pool.query("insert into collecttask values ("+tlength+",'"+task+"', '"+id+"', '"+answer+"')", (err, data) => {
             if(err) throw err
             else if(data.rowCount > 0) res.json({ succes: true })
             else res.json({ succes: false })

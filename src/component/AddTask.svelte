@@ -7,7 +7,7 @@
 	let question = []
 	let mchoice = []
 
-	if(user) getTask()
+	//if(user) getTask()
 </script>
 { #if user }
 <h1>Create Task</h1>

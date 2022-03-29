@@ -15,11 +15,11 @@ class Block{
     }
 
     mined(){
-        while(this.hash.substring(0,2) !== "3b"){
+        while(this.hash.substring(0,5) !== "3b8f0"){
             this.nonce += 1
             this.hash = this.calcHash()
         }
-        //console.log("Mined with hash "+this.hash+" in "+this.nonce+" nonce")
+        console.log("Mined with hash "+this.hash+" in "+this.nonce+" nonce")
     }
 }
 
@@ -58,4 +58,4 @@ tada.chain[1].hash = tada.chain[1].calcHash()
 
 console.log("Is Chain Valid "+tada.isValidChain())
 
-console.log(JSON.stringify(tada, null, 2))
+// console.log(JSON.stringify(tada, null, 2))
