@@ -7,10 +7,10 @@ const cp = require("cookie-parser")
 
 const app = express()
 const port = process.env.PORT || 8080
-const psph = "justlnh"
+const psph = process.env.PSPH
 
 const config = {
-    connectionString: "postgres://ycondiiz:SSEV0817KPhpRec6bHWHHZb1SI-uFaUp@topsy.db.elephantsql.com/ycondiiz",
+    connectionString: process.env.DB_URL,
     ssl: { rejectUnauthorized: false }
 }
 const pool = new pg.Pool(config)
