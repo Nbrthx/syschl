@@ -4,18 +4,31 @@
 
 	let id = ""
 	let name = ""
+        let forms = []
 	let question = []
 	let mchoice = []
-
+        
+        const addForm(){
+            
+        }
 	//if(user) getTask()
 </script>
 { #if user }
 <h1>Create Task</h1>
 <strong>Task ID</strong>
-<input type="text" bind:value={id}>
+<input type="text" bind:value={id}><br />
 <strong>Task Name</strong>
 <input type="text" bind:value={name}>
-<button>Add Question</button>
+<button on:click={}>Add Question</button>
+{ #each forms as form; i }
+Quest: <input type="text" bind:value={question[i][0]}/><br />
+Answer: <br />
+a. <input type="text" bind:value={question[i][1]}/><br />
+b. <input type="text" bind:value={question[i][2]}/><br />
+c. <input type="text" bind:value={question[i][3]}/><br />
+d. <input type="text" bind:value={question[i][4]}/><br />
+Key = <input type="text" bind:value={mchoice[i]}/><br />
+{ /each }
 { :else }
 <script>
 	location.href = "/login"
