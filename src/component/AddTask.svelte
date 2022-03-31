@@ -20,7 +20,7 @@
 <strong>Task Name</strong>
 <input type="text" bind:value={name}>
 <button on:click={}>Add Question</button>
-{ #each forms as form; i }
+{ #each forms as form, i }
 Quest: <input type="text" bind:value={question[i][0]}/><br />
 Answer: <br />
 a. <input type="text" bind:value={question[i][1]}/><br />
