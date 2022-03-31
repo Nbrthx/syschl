@@ -10,6 +10,8 @@
 	}
 	let tasks = []
 
+        console.log(user)
+
 	function getUserid(){
 		fetch("/api?for=data&&id="+user)
 		.then(res => res.json())
