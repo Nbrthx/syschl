@@ -64,7 +64,7 @@ app.get("/api", async (req, res) => {
         })
     }
     else if(req.query.for == "data"){
-        const id = req.query.id ? cjs.AES.decrypt(req.query.id, psph).toString(cjs.enc.Utf8) : ""
+        const id = cjs.AES.decrypt(req.query.id, psph).toString(cjs.enc.Utf8)
         const data = await pool.query("select * from users where id='"+id+"'")
         res.json(data.rows[0] || {})
     }
