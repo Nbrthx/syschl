@@ -7,6 +7,6 @@ const cookies = cstring ? cstring
     return acc;
   }, {}) : ""
 
-function User(){ return cookies }
+function User(){ return cookies.user }
 
 export default User
