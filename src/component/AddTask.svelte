@@ -8,8 +8,8 @@
 	let question = []
 	let mchoice = []
         
-        const addForm(){
-            
+        const addForm = () => {
+            forms.push("none")
         }
 	//if(user) getTask()
 </script>
@@ -19,7 +19,6 @@
 <input type="text" bind:value={id}><br />
 <strong>Task Name</strong>
 <input type="text" bind:value={name}>
-<button on:click={}>Add Question</button>
 { #each forms as form, i }
 Quest: <input type="text" bind:value={question[i][0]}/><br />
 Answer: <br />
@@ -29,6 +28,7 @@ c. <input type="text" bind:value={question[i][3]}/><br />
 d. <input type="text" bind:value={question[i][4]}/><br />
 Key = <input type="text" bind:value={mchoice[i]}/><br />
 { /each }
+<button on:click={addForm}>Add Question</button>
 { :else }
 <script>
 	location.href = "/login"
