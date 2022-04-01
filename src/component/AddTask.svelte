@@ -10,7 +10,7 @@
         
         function addForm(){
             forms.push("none")
-            question[] = []
+            question[forms.length-1] = []
             forms = forms
         }
 	//if(user) getTask()
