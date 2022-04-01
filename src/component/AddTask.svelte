@@ -10,6 +10,7 @@
         
         function addForm(){
             forms.push("none")
+            forms = forms
         }
 	//if(user) getTask()
 </script>
