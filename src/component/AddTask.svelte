@@ -8,7 +8,7 @@
 	let question = []
 	let mchoice = []
         
-        const addForm = () => {
+        function addForm(){
             forms.push("none")
         }
 	//if(user) getTask()
