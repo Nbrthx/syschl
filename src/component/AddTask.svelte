@@ -30,7 +30,9 @@ c. <input type="text" bind:value={question[i][3]}/><br />
 d. <input type="text" bind:value={question[i][4]}/><br />
 Key = <input type="text" bind:value={mchoice[i]}/><br />
 { /each }
-<button on:click={addForm}>Add Question</button>
+<button on:click={addForm}>Add Question</button><br />
+{JSON.stringify(question)}<br />
+{JSON.stringify(mchoice)}
 { :else }
 <script>
 	location.href = "/login"
