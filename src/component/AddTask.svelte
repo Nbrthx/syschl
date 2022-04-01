@@ -11,6 +11,7 @@
         function addForm(){
             forms.push("none")
             forms = forms
+            question[] = []
         }
 	//if(user) getTask()
 </script>
